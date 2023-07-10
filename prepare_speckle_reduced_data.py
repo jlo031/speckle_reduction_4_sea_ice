@@ -20,14 +20,23 @@ from osgeo import gdal
 overwrite    = False
 make_figures = False
 
-S1_DIR = pathlib.Path('/Data/speckle_reduction_tests/Sentinel-1')
-LOIC_DIR = S1_DIR / 'from_loic'
+DATA_DIR      = pathlib.Path('/Data/speckle_reduction_tests')
+S1_DIR        = DATA_DIR / Sentinel-1'
+S1_L1_DIR     = S1_DIR / 'L1'
+S1_FEAT_DIR   =  S1_DIR / 'features'
+S1_RESULT_DIR = S1_DIR / 'classification_results'
+S1_LOIC_DIR   = S1_DIR / 'from_loic'
+FIG_DIR       = S1_DIR.parent / 'figures'
+
+S1_FEAT_DIR.mkdir(parents=True, exist_ok=True)
+S1_RESULT_DIR.mkdir(parents=True, exist_ok=True)
+FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
 # get list of all tiff files from Loic
-tiff_files = [ f for f in os.listdir(LOIC_DIR) if f.endswith('tiff') ]
+tiff_files = [ f for f in os.listdir(S1_LOIC_DIR) if f.endswith('tiff') ]
 
 # ------------------------------------------- #
 
@@ -36,7 +45,7 @@ for tiff_file in tiff_files:
 
     logger.info(f'Processing tiff_file: {tiff_file}')
 
-    tiff_path = LOIC_DIR / tiff_file
+    tiff_path = S1_LOIC_DIR / tiff_file
 
 
     # read tiff file
@@ -83,7 +92,7 @@ for tiff_file in tiff_files:
     logger.info(f'S1_base:                  {S1_base}')
 
     # build path to feature folder for current speckle reduction method
-    feature_folder = S1_DIR / 'features' / f'{speckle_reduction_method}' / f'{S1_base}'
+    feature_folder = S1_FEAT_DIR / f'{speckle_reduction_method}' / f'{S1_base}'
 
     logger.info(f'feature_folder:           {feature_folder}')
 
