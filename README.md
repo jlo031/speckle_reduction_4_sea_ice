@@ -15,5 +15,7 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 1) Prepare the speckle reduced data (tiff) for input into the *ice_type_classification" module*: **prepare_speckle_reduced_data.py**
 2) Extract HH, HV, IA, swath_mask, landmask for different ML levels: **extract_features.py**
 3) Classify all selected images using all speckle reduction methods separately: **classify_images.py**
-4) Geocode features and results for easy visualization on a map: **goecode_features_and_results.py**
+4) Make valid mask (based on swath and landmask): **make_valid_mask.py**
+5) Visualize in radar geometry for first inspection: **show_results.py**
+6) Geocode features and results for visualization on a map: **geocode_features_and_results.py**
 
