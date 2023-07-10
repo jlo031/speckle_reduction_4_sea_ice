@@ -1,11 +1,7 @@
 # ---- This is <extract_features.py> ----
 
 """
-Extract all features needed for ice type classification:
-- HH
-- HV
-- swath_mask
-- IA
+Extract HH, HV, ad IA for ice type classification with different ML settings.
 """
 
 import os
@@ -63,13 +59,6 @@ for s in safe_folder_list:
                 dB=True,
                 loglevel='INFO'
             )
-
-        # swath mask
-        S1_feat.get_S1_swath_mask(
-            safe_folder,
-            feat_folder,
-            loglevel='INFO'
-        )
 
         # incident angle
         S1_feat.get_S1_IA(

@@ -1,7 +1,7 @@
 # ---- This is <classify_images.py> ----
 
 """
-Classify images using different speckle reduction methods
+Classify images using different speckle reduction methods.
 """
 
 import os

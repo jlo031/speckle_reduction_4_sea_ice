@@ -1,12 +1,7 @@
 # ---- This is <prepare_speckle_reduced_data.py> ----
 
 """
-Script to prepare data from Ines and Loic for ice type classification:
-- read tiff files with speckle reduced data provided by Loic and Ines
-- extract the separate channels (HH, HV)
-- find zero values and set to minimum to avoid log conversion issues
-- convert to dB
-- write output layers to individual feature folders
+Prepare data from Ines and Loic for input to ice_type_classification module.
 """
 
 import os
