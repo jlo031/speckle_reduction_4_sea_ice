@@ -18,22 +18,12 @@ from osgeo import gdal
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-DATA_DIR      = pathlib.Path('/Data/speckle_reduction_tests')
-S1_DIR        = DATA_DIR / Sentinel-1'
-S1_L1_DIR     = S1_DIR / 'L1'
-S1_FEAT_DIR   =  S1_DIR / 'features'
-S1_RESULT_DIR = S1_DIR / 'classification_results'
-S1_LOIC_DIR   = S1_DIR / 'from_loic'
-FIG_DIR = S1_DIR.parent / 'figures'
-
-S1_FEAT_DIR.mkdir(parents=True, exist_ok=True)
-S1_RESULT_DIR.mkdir(parents=True, exist_ok=True)
-FIG_DIR.mkdir(parents=True, exist_ok=True)
-
 vmin_HH = -35
 vmax_HH = 0
 vmin_HV = -40
 vmax_HV = -5
+
+from folder_structure import *
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #

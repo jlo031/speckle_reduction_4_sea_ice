@@ -15,22 +15,11 @@ import ice_type_classification.classification as cl
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-DATA_DIR      = pathlib.Path('/Data/speckle_reduction_tests')
-S1_DIR        = DATA_DIR / Sentinel-1'
-S1_L1_DIR     = S1_DIR / 'L1'
-S1_FEAT_DIR   =  S1_DIR / 'features'
-S1_RESULT_DIR = S1_DIR / 'classification_results'
-S1_LOIC_DIR   = S1_DIR / 'from_loic'
-FIG_DIR       = S1_DIR.parent / 'figures'
-
-S1_FEAT_DIR.mkdir(parents=True, exist_ok=True)
-S1_RESULT_DIR.mkdir(parents=True, exist_ok=True)
-FIG_DIR.mkdir(parents=True, exist_ok=True)
-
 clf_model_path = pathlib.Path('/home/jo/work/ice_type_classification/src/ice_type_classification/clf_models/belgica_bank_ice_types.pickle')
 
-# list of speckle reduction methods to consider separately
 subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines']
+
+from folder_structure import *
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
