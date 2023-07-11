@@ -16,6 +16,7 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 2) Extract HH, HV, IA, swath_mask, landmask for different ML levels: **extract_features.py**
 3) Classify all selected images using all speckle reduction methods separately: **classify_images.py**
 4) Make valid mask (based on swath and landmask): **make_valid_mask.py**
-5) Visualize in radar geometry for first inspection: **show_results.py**
-6) Geocode features and results for visualization on a map: **geocode_features_and_results.py**
+5) Mask out invalid pixels in classification result: **combine_results_with_valid_mask.py**
+6) Visualize in radar geometry for first inspection: **show_results.py**
+7) Geocode features and results for visualization on a map: **geocode_features_and_results.py**
 
