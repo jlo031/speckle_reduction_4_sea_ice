@@ -65,6 +65,33 @@ for S1_name in S1_list:
         )
 
 
+
+        # VALID LABELS
+
+        # build path to classification result
+        img_path = S1_RESULT_DIR / subfolder / f'{S1_name}_labels_valid.img'
+
+        # build path to output tiff file
+        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{subfolder}_labels_valid_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
+
+        # geocode classification result
+        geo_S1.geocode_S1_image_from_safe_gcps(
+            img_path,
+            safe_folder,
+            output_tiff_path,
+            target_epsg,
+            pixel_spacing,
+            srcnodata=0,
+            dstnodata=0,
+            order=3,
+            resampling='near',
+            keep_gcp_file=False,
+            overwrite=False,
+            loglevel='INFO',
+        )
+
+
+
         # HH
 
         # build path to HH folder
