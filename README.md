@@ -19,4 +19,5 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 5) Mask out invalid pixels in classification result: **combine_results_with_valid_mask.py**
 6) Visualize in radar geometry for first inspection: **show_results.py**
 7) Geocode features and results for visualization on a map: **geocode_features_and_results.py**
+8) Merge features and labels from same orbits and crop to AOI: **merge_and_crop_orbits.py**
 
