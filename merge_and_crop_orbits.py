@@ -10,6 +10,7 @@ import pathlib
 from loguru import logger
 
 import geocoding.S1_geocoding as geo_S1
+import geocoding.generic_geocoding as geo_gen
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -20,6 +21,8 @@ subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines']
 
 orbit_list = ['043029_05233F', '043044_0523D1']
 
+crop_AOI = [-400000, 0, -1300000, -900000]
+
 from folder_structure import *
 
 # -------------------------------------------------------------------------- #
@@ -28,9 +31,12 @@ from folder_structure import *
 # get complete list of geocoeded tiff files
 file_list = [ f for f in os.listdir(S1_GEO_DIR) if f.endswith('tiff') ]
 
+# initialize list of merged geocoeded tiff files per orbit to be cropped later
+files_2_crop_list = []
+
 # ------------------------------------------- #
 
-# loop over allorbits
+# loop over all orbits
 for orbit in orbit_list:
 
     logger.info(f'Processing orbit: {orbit}')
@@ -66,9 +72,11 @@ for orbit in orbit_list:
             # build path to merged output tiff file
             merged_output_tiff_path = orbit_folder / f'Sigma0_HH_db_{subfolder}.tiff'
 
+            # append to list of files that should be cropped later
+            files_2_crop_list.append(merged_output_tiff_path)
+
             if merged_output_tiff_path.is_file() and not overwrite:
-                logger.info('Current output file already exists')
-                continue
+                logger.info('Current output file (HH orbit) already exists')
 
             else:
 
@@ -91,9 +99,11 @@ for orbit in orbit_list:
             # build path to merged output tiff file
             merged_output_tiff_path = orbit_folder / f'Sigma0_HV_db_{subfolder}.tiff'
 
+            # append to list of files that should be cropped later
+            files_2_crop_list.append(merged_output_tiff_path)
+
             if merged_output_tiff_path.is_file() and not overwrite:
-                logger.info('Current output file already exists')
-                continue
+                logger.info('Current output file (HV orbit) already exists')
 
             else:
 
@@ -116,9 +126,11 @@ for orbit in orbit_list:
             # build path to merged output tiff file
             merged_output_tiff_path = orbit_folder / f'labels_{subfolder}.tiff'
 
+            # append to list of files that should be cropped later
+            files_2_crop_list.append(merged_output_tiff_path)
+
             if merged_output_tiff_path.is_file() and not overwrite:
-                logger.info('Current output file already exists')
-                continue
+                logger.info('Current output file (labels orbit) already exists')
 
             else:
 
@@ -141,9 +153,11 @@ for orbit in orbit_list:
             # build path to merged output tiff file
             merged_output_tiff_path = orbit_folder / f'labels_valid_{subfolder}.tiff'
 
+            # append to list of files that should be cropped later
+            files_2_crop_list.append(merged_output_tiff_path)
+
             if merged_output_tiff_path.is_file() and not overwrite:
-                logger.info('Current output file already exists')
-                continue
+                logger.info('Current output file (valid labels orbit) already exists')
 
             else:
 
@@ -159,6 +173,67 @@ for orbit in orbit_list:
                 logger.debug(f'Exectuting: {cmd_gdal_merge}')
                 os.system(cmd_gdal_merge)
 
+# ------------------------------------------- #
+
+        # stack HH and HV (for false-color visualization in QGIS)
+
+        # build output path to HH HV stack
+        HH_HV_output_path = orbit_folder / f'HH_HV_{subfolder}.tiff'
+
+        # append to list of files that should be cropped later
+        files_2_crop_list.append(HH_HV_output_path)
+
+        if HH_HV_output_path.is_file() and not overwrite:
+            logger.info('Current output file (HH HV orbit stack) already exists')
+
+        else:
+
+            input_tif_path1 = orbit_folder / f'Sigma0_HH_db_{subfolder}.tiff'
+            input_tif_path2 = orbit_folder / f'Sigma0_HV_db_{subfolder}.tiff'
+
+            geo_gen.geo_utils.stack_geocoded_images(
+                input_tif_path1,
+                input_tif_path2,
+                HH_HV_output_path,
+                overwrite=overwrite,
+                loglevel='INFO',
+            )
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+# loop over all geocoded files_2_crop and crop to AOI
+
+logger.info(f'Looping over files_2_crop_list with {len(files_2_crop_list)} entries')
+
+for i,file_2_crop in enumerate(files_2_crop_list):
+
+    logger.info(f'File {i+1}:             {file_2_crop}')
+
+    # build path to cropped output file
+    cropped_output_path = file_2_crop.parent / f'{file_2_crop.stem}_crop.tiff'
+
+    logger.info(f'cropped_output_path: {cropped_output_path}')
+
+    if cropped_output_path.is_file() and not overwrite:
+        logger.info('Current output file already exists')
+
+    else:
+
+        logger.info('Cropping to AOI')
+
+        ulx = crop_AOI[0]
+        uly = crop_AOI[3]
+        lrx = crop_AOI[1]
+        lry = crop_AOI[2]
+
+        cmd_gdal_crop = f'gdal_translate ' + \
+            f'-projwin {ulx} {uly} {lrx} {lry} ' + \
+            f'{file_2_crop.as_posix()} ' + \
+            f'{cropped_output_path}'
+
+        logger.debug(f'Exectuting: {cmd_gdal_crop}')
+        os.system(cmd_gdal_crop)
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
