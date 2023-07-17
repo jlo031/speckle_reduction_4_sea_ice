@@ -1,7 +1,7 @@
 # ---- This is <combine_results_with_valid_mask.py> ----
 
 """
-Mask out non-valid pixels in classification results.
+Mask out invalid pixels in classification results.
 """
 
 import os

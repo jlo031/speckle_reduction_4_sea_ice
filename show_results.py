@@ -1,4 +1,4 @@
-# ---- This is <show_results.py> ----
+# ---- This is <show_results_in_radar_geometry.py> ----
 
 """
 Visualize results in radar geometry for first inspection.
@@ -167,4 +167,4 @@ for S1_name in S1_list:
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-# ---- End of <show_results.py> ----
+# ---- End of <show_results_in_radar_geometry.py> ----

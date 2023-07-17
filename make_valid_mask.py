@@ -1,7 +1,7 @@
 # ---- This is <make_valid_mask.py> ----
 
 """
-Extract lat/lon, swath_mask, and landmask to combine to valid mask.
+Extract lat/lon, swath_mask, and landmask. Combine to valid mask.
 """
 
 import os
