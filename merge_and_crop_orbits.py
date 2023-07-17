@@ -45,6 +45,10 @@ for orbit in orbit_list:
     orbit_folder = S1_ORBIT_DIR / f'{orbit}'
     orbit_folder.mkdir(parents=True, exist_ok=True)
 
+    # build folder to AOI for current orbit
+    orbit_AOI_folder = S1_ORBIT_DIR / f'{orbit}' / f'AOIs'
+    orbit_AOI_folder.mkdir(parents=True, exist_ok=True)
+
     # get list of gepcoded tiff files for current orbit
     orbit_file_list = [ f for f in file_list if f'{orbit}' in f ]
 
@@ -211,7 +215,7 @@ for i,file_2_crop in enumerate(files_2_crop_list):
     logger.info(f'File {i+1}:             {file_2_crop}')
 
     # build path to cropped output file
-    cropped_output_path = file_2_crop.parent / f'{file_2_crop.stem}_crop.tiff'
+    cropped_output_path = file_2_crop.parent / 'AOIs' / f'{file_2_crop.stem}_crop.tiff'
 
     logger.info(f'cropped_output_path: {cropped_output_path}')
 
