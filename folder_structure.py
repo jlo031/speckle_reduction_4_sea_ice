@@ -18,12 +18,14 @@ S1_LOIC_DIR   = S1_DIR / 'from_loic'
 S1_GEO_DIR    = S1_DIR / 'geocoded'
 S1_ORBIT_DIR  = S1_GEO_DIR / 'orbits'
 FIG_DIR       = S1_DIR.parent / 'figures'
+PAPER_FIG_DIR = FIG_DIR / 'figures_4_paper'
 
 S1_FEAT_DIR.mkdir(parents=True, exist_ok=True)
 S1_RESULT_DIR.mkdir(parents=True, exist_ok=True)
 S1_GEO_DIR.mkdir(parents=True, exist_ok=True)
 S1_ORBIT_DIR.mkdir(parents=True, exist_ok=True)
 FIG_DIR.mkdir(parents=True, exist_ok=True)
+PAPER_FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
