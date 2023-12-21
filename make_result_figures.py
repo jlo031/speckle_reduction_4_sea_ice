@@ -89,6 +89,7 @@ intensities_ML_21x21 = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_ML_21x21
 intensities_MuLoG    = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_MuLoG_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_SARBM3D_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_ines     = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_ines_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
+intensities_denoised = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_denoised_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 
 # load labels
 labels_ML_1x1   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_ML_1x1_crop.tiff').as_posix()).ReadAsArray()
@@ -97,14 +98,15 @@ labels_ML_21x21 = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_ML_21x
 labels_MuLoG    = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_MuLoG_crop.tiff').as_posix()).ReadAsArray()
 labels_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_SARBM3D_crop.tiff').as_posix()).ReadAsArray()
 labels_ines     = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_ines_crop.tiff').as_posix()).ReadAsArray()
+labels_denoised = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_denoised_crop.tiff').as_posix()).ReadAsArray()
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
-# make RGB of ines intensities
+# make RGB of denoised intensities
 
-HH = intensities_ines [:,:,0]
-HV = intensities_ines [:,:,1]
+HH = intensities_denoised [:,:,0]
+HV = intensities_denoised[:,:,1]
 
 # set no data values to nan (they are zero in the geocoded intensity image)
 HH[HH==0] = np.nan
@@ -153,7 +155,7 @@ plt.savefig('tmp1.png', dpi=300)
 # make a figure with same height to crop the colorbar
 
 fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((7,5)))
-h_cbar = ax.imshow(labels_ines, interpolation='nearest', cmap=cmap, norm=cmap_norm)
+h_cbar = ax.imshow(labels_denoised, interpolation='nearest', cmap=cmap, norm=cmap_norm)
 cbar = fig.colorbar(h_cbar, ticks=cmap_values, pad=0.075)
 cbar.set_ticklabels(legend_entries, weight='bold')
 cbar.ax.tick_params(rotation=-45)

@@ -14,7 +14,7 @@ import geocoding.S1_geocoding as geo_S1
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines']
+subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines', 'denoised']
 
 target_epsg = 3996
 pixel_spacing = 40

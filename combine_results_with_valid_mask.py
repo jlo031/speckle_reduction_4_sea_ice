@@ -14,7 +14,7 @@ from osgeo import gdal
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines']
+subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines', 'denoised']
 
 from folder_structure import *
 

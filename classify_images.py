@@ -17,7 +17,7 @@ import ice_type_classification.classification as cl
 
 clf_model_path = pathlib.Path('/home/jo/work/ice_type_classification/src/ice_type_classification/clf_models/belgica_bank_ice_types.pickle')
 
-subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines']
+subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines', 'denoised']
 
 from folder_structure import *
 
@@ -55,7 +55,7 @@ for S1_name in S1_list:
         logger.debug(f'feature_list:  {feature_list}')
 
         # copy IA images into feature folder if needed
-        if subfolder in ['MuLoG', 'SARBM3D', 'ines'] and 'IA.img' not in feature_list:
+        if subfolder in ['MuLoG', 'SARBM3D', 'ines', 'denoised'] and 'IA.img' not in feature_list:
             logger.info('Copying IA image into local feature folder')
             shutil.copyfile(S1_DIR/'features'/'ML_1x1'/f'{S1_name}'/'IA.img' , feat_folder/'IA.img')
             shutil.copyfile(S1_DIR/'features'/'ML_1x1'/f'{S1_name}'/'IA.hdr' , feat_folder/'IA.hdr')
@@ -64,6 +64,7 @@ for S1_name in S1_list:
             feat_folder.as_posix(),
             result_folder.as_posix(),
             clf_model_path.as_posix(),
+            uncertainties = False,
             valid_mask = False,
             block_size = 1000000.0,
             overwrite = False,

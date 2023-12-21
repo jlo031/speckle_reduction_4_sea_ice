@@ -9,7 +9,8 @@ import pathlib
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-DATA_DIR      = pathlib.Path('/Data/speckle_reduction_tests')
+DATA_DIR      = pathlib.Path('/media/Data/speckle_reduction_tests')
+##DATA_DIR      = pathlib.Path('/media/jo/EO_disk/data/speckle_reduction_tests')
 S1_DIR        = DATA_DIR / 'Sentinel-1'
 S1_L1_DIR     = S1_DIR / 'L1'
 S1_FEAT_DIR   = S1_DIR / 'features'
