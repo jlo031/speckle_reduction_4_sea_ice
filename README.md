@@ -33,7 +33,7 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
 5. Classify all images using all speckle reduction methods separately
 
-   conda run -n GLIA python classify_images.py
+       conda run -n GLIA python classify_images.py
 
   
 10) Mask out invalid pixels in classification result: **combine_results_with_valid_mask.py**
