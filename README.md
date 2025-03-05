@@ -27,13 +27,15 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
        conda run -n S1_processing python extract_features.py
 
-4. Classify all selected images using all speckle reduction methods separately
+4. Get landmask and make valid mask
+
+       conda run -n geocoding python get_landmask_make_valid_mask.py
+
+5. Classify all images using all speckle reduction methods separately
 
    conda run -n GLIA python classify_images.py
 
   
-8)
-9) Make valid mask (based on swath and landmask): **make_valid_mask.py**
 10) Mask out invalid pixels in classification result: **combine_results_with_valid_mask.py**
 11) Visualize in radar geometry for first inspection: **show_results.py**
 12) Geocode features and results for visualization on a map: **geocode_features_and_results.py**
