@@ -1,7 +1,7 @@
 # ---- This is <extract_features.py> ----
 
 """
-Extract HH, HV, ad IA for ice type classification with different ML settings.
+Extract HH, HV, and IA for ice type classification with different ML settings.
 """
 
 import os
@@ -16,7 +16,7 @@ import S1_processing.S1_feature_extraction as S1_feat
 
 ML_list = ['1x1', '9x9', '21x21']
 
-from folder_structure import *
+from config.folder_structure import *
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -66,9 +66,6 @@ for s in safe_folder_list:
             loglevel='INFO'
         )
 
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
