@@ -64,15 +64,15 @@ for s in safe_folder_list:
     # combine swath_mask and landmask to valid_mask
 
     # define valid mask output path
-    valid_mask_path = tmp_feat_folder / 'valid.img'
+    valid_mask_path = general_feat_folder / 'valid.img'
 
     if valid_mask_path.is_file() and not overwrite:
         logger.info('valid mask already exists\n')
         continue
 
     # read swath mask and landmask
-    sm = gdal.Open((tmp_feat_folder/'swath_mask.img').as_posix()).ReadAsArray()
-    lm = gdal.Open((tmp_feat_folder/'landmask.img').as_posix()).ReadAsArray()
+    sm = gdal.Open((general_feat_folder/'swath_mask.img').as_posix()).ReadAsArray()
+    lm = gdal.Open((general_feat_folder/'landmask.img').as_posix()).ReadAsArray()
 
     # initialize valid_mask
     valid_mask = np.ones(lm.shape)
@@ -89,6 +89,8 @@ for s in safe_folder_list:
     out.GetRasterBand(1).WriteArray(valid_mask)
     out.FlushCache
     del out
+
+    logger.info(f'Finished safe_folder: {s}\n')
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
