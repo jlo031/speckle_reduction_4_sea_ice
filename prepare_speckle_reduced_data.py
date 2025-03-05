@@ -20,7 +20,7 @@ from osgeo import gdal
 overwrite    = False
 make_figures = False
 
-from folder_structure import *
+from config.folder_structure import *
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -78,15 +78,14 @@ for tiff_file in tiff_files:
     speckle_reduction_method = pathlib.Path(tiff_file).stem.split('_')[-1]
     S1_base = '_'.join(pathlib.Path(tiff_file).stem.split('_')[0:9])
 
-    logger.info(f'speckle_reduction_method: {speckle_reduction_method}')
-    logger.info(f'S1_base:                  {S1_base}')
-
     # build path to feature folder for current speckle reduction method
     feature_folder = S1_FEAT_DIR / f'{speckle_reduction_method}' / f'{S1_base}'
 
+    logger.info(f'speckle_reduction_method: {speckle_reduction_method}')
+    logger.info(f'S1_base:                  {S1_base}')
     logger.info(f'feature_folder:           {feature_folder}')
 
-    # create feature folder of needed
+    # create feature folder if needed
     feature_folder.mkdir(parents=True, exist_ok=True)
 
 # ------------------------------------------- #

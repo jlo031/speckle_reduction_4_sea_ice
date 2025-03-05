@@ -9,15 +9,21 @@ import pathlib
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-DATA_DIR      = pathlib.Path('/media/Data/speckle_reduction_tests')
+##DATA_DIR      = pathlib.Path('/media/Data/speckle_reduction_tests')
 ##DATA_DIR      = pathlib.Path('/media/jo/EO_disk/data/speckle_reduction_tests')
+DATA_DIR      = pathlib.Path('/media/jo/LaCie_Q/EO_data/speckle_reduction_tests')
+
+# -------------------------------------------------------------------------- #
+
 S1_DIR        = DATA_DIR / 'Sentinel-1'
+
 S1_L1_DIR     = S1_DIR / 'L1'
 S1_FEAT_DIR   = S1_DIR / 'features'
 S1_RESULT_DIR = S1_DIR / 'classification_results'
 S1_LOIC_DIR   = S1_DIR / 'from_loic'
 S1_GEO_DIR    = S1_DIR / 'geocoded'
 S1_ORBIT_DIR  = S1_GEO_DIR / 'orbits'
+
 FIG_DIR       = S1_DIR.parent / 'figures'
 PAPER_FIG_DIR = FIG_DIR / 'figures_4_paper'
 
