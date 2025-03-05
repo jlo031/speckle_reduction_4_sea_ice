@@ -11,12 +11,14 @@ from loguru import logger
 
 import S1_processing.S1_feature_extraction as S1_feat
 
+from config.folder_structure import *
+
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
 ML_list = ['1x1', '9x9', '21x21']
 
-from config.folder_structure import *
+overwrite = False
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -37,6 +39,29 @@ for s in safe_folder_list:
     # build full path to safe folder
     safe_folder = S1_L1_DIR / s
 
+# ------------------------------------------- #
+
+    # build general feat folder
+    general_feat_folder = S1_FEAT_DIR / f'{S1_name}'
+
+    # get swath mask
+    S1_feat.get_S1_swath_mask(
+        safe_folder,
+        general_feat_folder,
+        overwrite = overwrite,
+        loglevel = 'INFO'
+    )
+
+    # get lat/lon for current image
+    S1_feat.get_S1_lat_lon(
+        safe_folder,
+        general_feat_folder,
+        overwrite = overwrite,
+        loglevel = 'INFO'
+    )
+
+# ------------------------------------------- #
+
     for ML in ML_list:
 
         logger.info(f'Processing ML: {ML}')
@@ -54,16 +79,18 @@ for s in safe_folder_list:
                 safe_folder,
                 feat_folder,
                 intensity,
-                ML=ML,
-                dB=True,
-                loglevel='INFO'
+                ML = ML,
+                dB = True,
+                overwrite = overwrite,
+                loglevel = 'INFO'
             )
 
         # incident angle
         S1_feat.get_S1_IA(
             safe_folder,
             feat_folder,
-            loglevel='INFO'
+            overwrite = overwrite,
+            loglevel = 'INFO'
         )
 
 # -------------------------------------------------------------------------- #

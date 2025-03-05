@@ -1,7 +1,7 @@
-# ---- This is <make_valid_mask.py> ----
+# ---- This is <get_landmask_make_valid_mask.py> ----
 
 """
-Extract lat/lon, swath_mask, and landmask. Combine to valid mask.
+Extract landmask and make valid_mask.
 """
 
 import os
@@ -12,21 +12,17 @@ from loguru import logger
 import numpy as np
 from osgeo import gdal
 
-import S1_processing.S1_feature_extraction as S1_feat
 import geocoding.landmask as geo_lm
 
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-
-from folder_structure import *
-
-ML_list = ['1x1', '9x9', '21x21']
-
-osm_landmask_path = S1_DIR.parent / 'shapefiles' / 'land-polygons-split-4326' / 'land_polygons.shp'
+from config.folder_structure import *
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+overwrite = False
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
 # get list of all safe folders
 safe_folder_list = [ f for f in os.listdir(S1_L1_DIR) if f.endswith('SAFE') ]
 
@@ -43,29 +39,14 @@ for s in safe_folder_list:
     # build full path to safe folder
     safe_folder = S1_L1_DIR / s
 
-    # create temporary feat folder
-    tmp_feat_folder = S1_FEAT_DIR / f'{S1_name}'
+    # build general feat folder
+    general_feat_folder = S1_FEAT_DIR / f'{S1_name}'
 
-    # get swath mask
-    S1_feat.get_S1_swath_mask(
-        safe_folder,
-        tmp_feat_folder,
-        loglevel='INFO'
-    )
-
-    # get lat/lon for current image
-    S1_feat.get_S1_lat_lon(
-        safe_folder,
-        tmp_feat_folder,
-        overwrite=False,
-        dry_run=False,
-        loglevel='INFO',
-    )
-
-    lat_path = tmp_feat_folder / 'lat.img'
-    lon_path = tmp_feat_folder / 'lon.img'
+    # build lat, lon, and landmask paths
+    lat_path = general_feat_folder / 'lat.img'
+    lon_path = general_feat_folder / 'lon.img'
     shapefile_path = osm_landmask_path
-    output_path = tmp_feat_folder / 'landmask.img'
+    output_path = general_feat_folder / 'landmask.img'
 
     # convert landmask to SAR geometry for current image
     geo_lm.convert_osm_landmask_2_SAR_geometry(
@@ -73,14 +54,21 @@ for s in safe_folder_list:
         lon_path,
         shapefile_path,
         output_path,
-        tie_points=21,
-        overwrite=False,
-        loglevel='INFO',
+        tie_points = 21,
+        overwrite = overwrite,
+        loglevel = 'INFO'
     )
 
 # ------------------------------------------- #
 
     # combine swath_mask and landmask to valid_mask
+
+    # define valid mask output path
+    valid_mask_path = tmp_feat_folder / 'valid.img'
+
+    if valid_mask_path.is_file() and not overwrite:
+        logger.info('valid mask already exists\n')
+        continue
 
     # read swath mask and landmask
     sm = gdal.Open((tmp_feat_folder/'swath_mask.img').as_posix()).ReadAsArray()
@@ -93,8 +81,6 @@ for s in safe_folder_list:
     valid_mask[lm==0] = 0
     valid_mask[sm==0] = 0
 
-    # define valid mask output path
-    valid_mask_path = tmp_feat_folder / 'valid.img'
 
     # write valid_mask to file
     logger.info('Writing valid_mask to file')
@@ -106,8 +92,5 @@ for s in safe_folder_list:
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
 
-# ---- End of <make_valid_mask.py> ----
+# ---- End of <get_landmask_make_valid_mask.py> ----

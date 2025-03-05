@@ -15,6 +15,10 @@ DATA_DIR      = pathlib.Path('/media/jo/LaCie_Q/EO_data/speckle_reduction_tests'
 
 # -------------------------------------------------------------------------- #
 
+osm_landmask_path = pathlib.Path('/media/Data/osm_shapefiles/land-polygons-split-4326/land_polygons.shp')
+
+# -------------------------------------------------------------------------- #
+
 S1_DIR        = DATA_DIR / 'Sentinel-1'
 
 S1_L1_DIR     = S1_DIR / 'L1'
