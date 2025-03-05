@@ -61,7 +61,7 @@ for S1_name in S1_list:
             shutil.copyfile(S1_DIR/'features'/'ML_1x1'/f'{S1_name}'/'IA.hdr' , feat_folder/'IA.hdr')
 
         # copy valid_mask into feature folder if needed
-        if 'valid' not in feature_list:
+        if 'valid.img' not in feature_list:
             logger.info('Copying valid mask image into local feature folder')
             shutil.copyfile(S1_DIR / 'features' / f'{S1_name}' / 'valid.img' , feat_folder/'valid.img')
             shutil.copyfile(S1_DIR / 'features' / f'{S1_name}' / 'valid.hdr' , feat_folder/'valid.hdr')
