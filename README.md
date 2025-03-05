@@ -1,10 +1,12 @@
 # speckle_reduction_4_sea_ice
 
-Collection of scripts to test different speckle reduction methods for sea ice type classification.
+Collection of scripts to test different speckle reduction methods for sea ice type classification.  
+Can be used to reproduce the sea ice work for the paper "Joint despeckling and thermal noise compensation: Application to Sentinel-1 EW GRDM images of the Arctic"
 
 
 ### Background
-In her PhD, Ines has developed a novel CNN-based method for speckle reduction in S1 EW mode imagery. Here, we test the effect of this method on high-resolutiuon, pixel-wise classification of sea ie types. We compare to results obtained from simple multi-looking with different window sizes and other deep-learning based methods.
+Ines and Loic (and others) hav developed a CNN-based method for joint despeckling and thermal noise compensationof S1 EW GRDM imagery.  
+Here, we test the effect of this method on high-resolutiuon, pixel-wise classification of sea ie types. We compare to results obtained from simple multi-looking with different window sizes and other deep-learning based methods.
 
 Sentinel-1 images over Beligica Bank during the CIRFA-22 are selected by Johannes.
 
