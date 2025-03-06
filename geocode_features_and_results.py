@@ -11,15 +11,16 @@ from loguru import logger
 
 import geocoding.S1_geocoding as geo_S1
 
+from config.folder_structure import *
+
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-subfolder_list = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'ines', 'denoised']
-
+procesing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
 target_epsg = 3996
 pixel_spacing = 40
 
-from folder_structure import *
+overwrite = False
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -37,16 +38,19 @@ for S1_name in S1_list:
     # build full path to safe folder
     safe_folder = S1_L1_DIR / f'{S1_name}.SAFE'
 
-    for subfolder in subfolder_list:
+    # loop through all processing methods
+    for procesing_method in procesing_methods:
+
+        logger.info(f'Processing speckle reduction: {procesing_method}')
 
 
         # LABELS
 
         # build path to classification result
-        img_path = S1_RESULT_DIR / subfolder / f'{S1_name}_labels.img'
+        img_path = S1_RESULT_DIR / procesing_method / f'{S1_name}_labels.img'
 
         # build path to output tiff file
-        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{subfolder}_labels_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
+        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{procesing_method}_labels_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
 
         # geocode classification result
         geo_S1.geocode_S1_image_from_safe_gcps(
@@ -55,39 +59,13 @@ for S1_name in S1_list:
             output_tiff_path,
             target_epsg,
             pixel_spacing,
-            srcnodata=0,
-            dstnodata=0,
-            order=3,
-            resampling='near',
-            keep_gcp_file=False,
-            overwrite=False,
-            loglevel='INFO',
-        )
-
-
-
-        # VALID LABELS
-
-        # build path to classification result
-        img_path = S1_RESULT_DIR / subfolder / f'{S1_name}_labels_valid.img'
-
-        # build path to output tiff file
-        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{subfolder}_labels_valid_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
-
-        # geocode classification result
-        geo_S1.geocode_S1_image_from_safe_gcps(
-            img_path,
-            safe_folder,
-            output_tiff_path,
-            target_epsg,
-            pixel_spacing,
-            srcnodata=0,
-            dstnodata=0,
-            order=3,
-            resampling='near',
-            keep_gcp_file=False,
-            overwrite=False,
-            loglevel='INFO',
+            srcnodata = 0,
+            dstnodata = 0,
+            order = 3,
+            resampling = 'near',
+            keep_gcp_file = False,
+            overwrite = overwrite,
+            loglevel = 'INFO',
         )
 
 
@@ -95,10 +73,10 @@ for S1_name in S1_list:
         # HH
 
         # build path to HH folder
-        img_path = S1_FEAT_DIR / subfolder / f'{S1_name}' / 'Sigma0_HH_db.img'
+        img_path = S1_FEAT_DIR / procesing_method / f'{S1_name}' / 'Sigma0_HH_db.img'
 
         # build path to output tiff file
-        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{subfolder}_HH_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
+        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{procesing_method}_HH_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
 
         # geocode HH
         geo_S1.geocode_S1_image_from_safe_gcps(
@@ -107,23 +85,23 @@ for S1_name in S1_list:
             output_tiff_path,
             target_epsg,
             pixel_spacing,
-            srcnodata=0,
-            dstnodata=0,
-            order=3,
-            resampling='near',
-            keep_gcp_file=False,
-            overwrite=False,
-            loglevel='INFO',
+            srcnodata = 0,
+            dstnodata = 0,
+            order = 3,
+            resampling = 'near',
+            keep_gcp_file = False,
+            overwrite = overwrite,
+            loglevel = 'INFO',
         )
 
 
         # HV
 
         # build path to HV folder
-        img_path = S1_FEAT_DIR / subfolder / f'{S1_name}' / 'Sigma0_HV_db.img'
+        img_path = S1_FEAT_DIR / procesing_method / f'{S1_name}' / 'Sigma0_HV_db.img'
 
         # build path to output tiff file
-        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{subfolder}_HV_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
+        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{procesing_method}_HV_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
 
         # geocode HV
         geo_S1.geocode_S1_image_from_safe_gcps(
@@ -132,13 +110,13 @@ for S1_name in S1_list:
             output_tiff_path,
             target_epsg,
             pixel_spacing,
-            srcnodata=0,
-            dstnodata=0,
-            order=3,
-            resampling='near',
-            keep_gcp_file=False,
-            overwrite=False,
-            loglevel='DEBUG',
+            srcnodata = 0,
+            dstnodata = 0,
+            order = 3,
+            resampling = 'near',
+            keep_gcp_file = False,
+            overwrite = overwrite,
+            loglevel = 'INFO',
         )
 
 # -------------------------------------------------------------------------- #
