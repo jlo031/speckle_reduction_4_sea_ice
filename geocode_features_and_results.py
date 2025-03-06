@@ -41,7 +41,7 @@ for S1_name in S1_list:
     # loop through all processing methods
     for procesing_method in procesing_methods:
 
-        logger.info(f'Processing speckle reduction: {procesing_method}')
+        logger.info(f'Geocoding processing method: {procesing_method}')
 
 
         # LABELS
@@ -118,6 +118,10 @@ for S1_name in S1_list:
             overwrite = overwrite,
             loglevel = 'INFO',
         )
+
+        logger.info(f'Finished processing method: {procesing_method}\n')
+
+    logger.info(f'Finished S1 image: {S1_name}\n')
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
