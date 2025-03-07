@@ -16,7 +16,7 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-procesing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
+processing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
 target_epsg = 3996
 pixel_spacing = 40
 
@@ -39,18 +39,18 @@ for S1_name in S1_list:
     safe_folder = S1_L1_DIR / f'{S1_name}.SAFE'
 
     # loop through all processing methods
-    for procesing_method in procesing_methods:
+    for processing_method in processing_methods:
 
-        logger.info(f'Geocoding processing method: {procesing_method}')
+        logger.info(f'Geocoding processing method: {processing_method}')
 
 
         # LABELS
 
         # build path to classification result
-        img_path = S1_RESULT_DIR / procesing_method / f'{S1_name}_labels.img'
+        img_path = S1_RESULT_DIR / processing_method / f'{S1_name}_labels.img'
 
         # build path to output tiff file
-        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{procesing_method}_labels_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
+        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{processing_method}_labels_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
 
         # geocode classification result
         geo_S1.geocode_S1_image_from_safe_gcps(
@@ -73,10 +73,10 @@ for S1_name in S1_list:
         # HH
 
         # build path to HH folder
-        img_path = S1_FEAT_DIR / procesing_method / f'{S1_name}' / 'Sigma0_HH_db.img'
+        img_path = S1_FEAT_DIR / processing_method / f'{S1_name}' / 'Sigma0_HH_db.img'
 
         # build path to output tiff file
-        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{procesing_method}_HH_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
+        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{processing_method}_HH_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
 
         # geocode HH
         geo_S1.geocode_S1_image_from_safe_gcps(
@@ -98,10 +98,10 @@ for S1_name in S1_list:
         # HV
 
         # build path to HV folder
-        img_path = S1_FEAT_DIR / procesing_method / f'{S1_name}' / 'Sigma0_HV_db.img'
+        img_path = S1_FEAT_DIR / processing_method / f'{S1_name}' / 'Sigma0_HV_db.img'
 
         # build path to output tiff file
-        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{procesing_method}_HV_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
+        output_tiff_path = S1_GEO_DIR / f'{S1_name}_{processing_method}_HV_epsg{target_epsg}_pixelspacing{pixel_spacing}.tiff'
 
         # geocode HV
         geo_S1.geocode_S1_image_from_safe_gcps(
@@ -119,7 +119,7 @@ for S1_name in S1_list:
             loglevel = 'INFO',
         )
 
-        logger.info(f'Finished processing method: {procesing_method}\n')
+        logger.info(f'Finished processing method: {processing_method}\n')
 
     logger.info(f'Finished S1 image: {S1_name}\n')
 

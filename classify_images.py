@@ -19,7 +19,7 @@ from config.folder_structure import *
 
 clf_model_path = pathlib.Path('config/belgica_bank_ice_types_2022.pickle').resolve()
 
-procesing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
+processing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -35,13 +35,13 @@ for S1_name in S1_list:
     logger.info(f'Processing S1 image: {S1_name}\n')
 
     # loop through all processing methods
-    for procesing_method in procesing_methods:
+    for processing_method in processing_methods:
 
-        logger.info(f'Processing speckle reduction: {procesing_method}')
+        logger.info(f'Classifying processing method: {processing_method}')
  
         # build paths to feature and results folder
-        feat_folder   = S1_DIR / 'features' / f'{procesing_method}' / f'{S1_name}'
-        result_folder = S1_RESULT_DIR / f'{procesing_method}'
+        feat_folder   = S1_DIR / 'features' / f'{processing_method}' / f'{S1_name}'
+        result_folder = S1_RESULT_DIR / f'{processing_method}'
 
         if not feat_folder.is_dir():
             logger.error(f'Current feature folder does not exists: {feat_folder}')
@@ -55,7 +55,7 @@ for S1_name in S1_list:
         logger.debug(f'feature_list:  {feature_list}')
 
         # copy IA images into feature folder if needed
-        if procesing_method in ['MuLoG', 'SARBM3D', 'baseline', 'proposed'] and 'IA.img' not in feature_list:
+        if processing_method in ['MuLoG', 'SARBM3D', 'baseline', 'proposed'] and 'IA.img' not in feature_list:
             logger.info('Copying IA image into local feature folder')
             shutil.copyfile(S1_DIR/'features'/'ML_1x1'/f'{S1_name}'/'IA.img' , feat_folder/'IA.img')
             shutil.copyfile(S1_DIR/'features'/'ML_1x1'/f'{S1_name}'/'IA.hdr' , feat_folder/'IA.hdr')
@@ -79,7 +79,7 @@ for S1_name in S1_list:
             loglevel = 'INFO',
         )
 
-        logger.info(f'Finished processing method: {procesing_method}\n')
+        logger.info(f'Finished processing method: {processing_method}\n')
 
     logger.info(f'Finished S1 image: {S1_name}\n')
 

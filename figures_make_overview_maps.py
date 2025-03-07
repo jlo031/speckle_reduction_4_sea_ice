@@ -1,4 +1,4 @@
-# ---- This is <make_overview_map.py> ----
+# ---- This is <figures_make_overview_maps.py> ----
 
 """
 Visualize data and results on map.
@@ -19,6 +19,8 @@ from osgeo import gdal
 import cartopy
 import cartopy.crs as ccrs
 
+from config.folder_structure import *
+
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
@@ -30,21 +32,49 @@ vmax_HV = -5
 x_grid = [-45, -30, -15, 0, 15, 30]
 y_grid = [76, 79, 82, 85]
 
-from folder_structure import *
+
+orbit_list = ['043029_05233F', '043044_0523D1']
+
+processing_method = 'proposed'
+
+overwrite = False
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
 # define list of intensity image paths
 geo_image_path_list = [
-    S1_GEO_DIR / 'orbits' / '043029_05233F' / 'HH_HV_ines.tiff',
-    S1_GEO_DIR / 'orbits' / '043044_0523D1' / 'HH_HV_ines.tiff',
+    S1_GEO_DIR / 'orbits' / '043029_05233F' / f'HH_HV_{processing_method}.tiff',
+    S1_GEO_DIR / 'orbits' / '043044_0523D1' / f'HH_HV_{processing_method}.tiff',
 ]
 
-for geo_image_path in geo_image_path_list:
 
+
+# loop over all orbits
+for orbit in orbit_list:
+
+    logger.info(f'Processing orbit: {orbit}\n')
+    logger.info(f'Working on processing method: {processing_method}')
+    
+# ------------------------------------------- #
+
+    # build folder to current orbit and tiff file
+    geo_image_path = S1_ORBIT_DIR / orbit / f'HH_HV_{processing_method}.tiff'
+
+    # build path to output figure
+    output_figure_path = FIG_DIR / f'overview_map_full_orbit_{orbit}_method_{processing_method}.png'
+
+    if output_figure_path.is_file() and not overwrite:
+        logger.info('Figure for current orbit and processing method already exists')
+        logger.info(f'Finished processing method: {processing_method}\n')
+        logger.info(f'Finished orbit: {orbit}\n')
+        continue
+
+# ------------------------------------------- #
 
     # read intensities and combine to RGB image
+
+    logger.info('Reading and scaling intensities')
 
     intensities = gdal.Open((geo_image_path).as_posix()).ReadAsArray().transpose(1,2,0)
 
@@ -72,6 +102,8 @@ for geo_image_path in geo_image_path_list:
 # --------------------------------------------------------------- #
 
     # PREPARE THE ACTUAL FIGURE
+
+    logger.info(f'Making and saving figure: {output_figure_path}')
 
     # get image extent 
     gtif = gdal.Open((geo_image_path).as_posix())
@@ -104,22 +136,21 @@ for geo_image_path in geo_image_path_list:
 
     ax.set_extent([image_extent[0],image_extent[1],image_extent[2],image_extent[3]], crs=projection)
 
-
-    ax.imshow(RGB, extent=image_extent, transform=projection, zorder=1, alpha=0.25)
-
+    ax.imshow(RGB, extent=image_extent, transform=projection, zorder=1, alpha=0.75)
 
     ax.set_facecolor("gray")
 
-    plt.savefig('test.png', dpi=300)
+    plt.savefig(output_figure_path, dpi=300)
 
 
     # clean up current figure
     plt.close('all')
 
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
+
+    logger.info(f'Finished processing method: {processing_method}\n')
+    logger.info(f'Finished orbit: {orbit}\n')
+
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-# ---- End of <make_overview_map.py> ----
+# ---- End of <figures_make_overview_maps.py> ----

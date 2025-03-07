@@ -1,4 +1,4 @@
-# ---- This is <make_all_figures_orbit_043029_05233F.py> ----
+# ---- This is <figures_make_all_figures_orbit_043029_05233F.py> ----
 
 """
 Visualize data and results on map.
@@ -23,7 +23,7 @@ from osgeo import gdal
 import cartopy
 import cartopy.crs as ccrs
 
-from folder_structure import *
+from config.folder_structure import *
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -64,18 +64,11 @@ for idx in np.round(np.linspace(0,255,4)).astype(int):
     class_colors_norm.append(CMAP.colors[idx])
 
 # define level boundaries for colormap
-cmap_bounds = np.arange(
-    -0.5,len(class_colors_norm)+0.5,1
-)
-cmap_values = np.convolve(
-    cmap_bounds, np.ones(2)/2, mode='valid'
-).astype(int)
+cmap_bounds = np.arange(-0.5,len(class_colors_norm)+0.5,1)
+cmap_values = np.convolve(cmap_bounds, np.ones(2)/2, mode='valid').astype(int)
 
 # build colormap
-cmap = mpl.colors.ListedColormap(
-    class_colors_norm,
-    name='belgica_bank_cmap'
-)
+cmap = mpl.colors.ListedColormap(class_colors_norm,name='belgica_bank_cmap')
 
 # build a colormap index based on level boundaries
 cmap_norm = mpl.colors.BoundaryNorm(cmap_bounds, cmap.N)
@@ -104,17 +97,17 @@ intensities_ML_9x9   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_ML_9x9_c
 intensities_ML_21x21 = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_ML_21x21_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_MuLoG    = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_MuLoG_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_SARBM3D_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
-intensities_baseline = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_ines_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
-intensities_proposed = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_denoised_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
+intensities_baseline = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_baseline_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
+intensities_proposed = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_proposed_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 
 # load labels
-labels_ML_1x1   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_ML_1x1_crop.tiff').as_posix()).ReadAsArray()
-labels_ML_9x9   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_ML_9x9_crop.tiff').as_posix()).ReadAsArray()
-labels_ML_21x21 = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_ML_21x21_crop.tiff').as_posix()).ReadAsArray()
-labels_MuLoG    = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_MuLoG_crop.tiff').as_posix()).ReadAsArray()
-labels_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_SARBM3D_crop.tiff').as_posix()).ReadAsArray()
-labels_baseline = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_ines_crop.tiff').as_posix()).ReadAsArray()
-labels_proposed = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_valid_denoised_crop.tiff').as_posix()).ReadAsArray()
+labels_ML_1x1   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_ML_1x1_crop.tiff').as_posix()).ReadAsArray()
+labels_ML_9x9   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_ML_9x9_crop.tiff').as_posix()).ReadAsArray()
+labels_ML_21x21 = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_ML_21x21_crop.tiff').as_posix()).ReadAsArray()
+labels_MuLoG    = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_MuLoG_crop.tiff').as_posix()).ReadAsArray()
+labels_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_SARBM3D_crop.tiff').as_posix()).ReadAsArray()
+labels_baseline = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_baseline_crop.tiff').as_posix()).ReadAsArray()
+labels_proposed = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_proposed_crop.tiff').as_posix()).ReadAsArray()
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -987,7 +980,5 @@ os.system(f'mv {PAPER_FIG_DIR}/*pdf {pdf_dir}/.')
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
-# --------------------------------------------------------------- #
-# --------------------------------------------------------------- #
 
-# ---- End of <make_all_figures_orbit_043029_05233F.py> ----
+# ---- End of <figures_make_all_figures_orbit_043029_05233F.py> ----
