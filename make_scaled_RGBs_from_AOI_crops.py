@@ -41,8 +41,8 @@ new_max = 255
 
 # RGB channels for scaled image
 red   = 'HV'
-green = 'HH'
-blue  = 'HH'
+green = 'HV'
+blue  = 'HV'
 
 orbit_list = ['043029_05233F', '043044_0523D1']
 
