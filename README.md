@@ -44,7 +44,17 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
        conda run -n geocoding python merge_and_crop_orbits.py
 
 
+Use labelme to mark ROIs for different ice types around the swath boundaries.  
+Evaluate classifcation accuracy and confusion matrix for these ROIs.
+Make figures.
 
-These steps are deprecated/not needed anymore
-10) Mask out invalid pixels in classification result: **combine_results_with_valid_mask.py**
-11) Visualize in radar geometry for first inspection: **show_results.py**
+
+
+### Figures
+
+All scripts for visualization start with *figures_*.  
+
+*figures_make_overview_maps.py* makes simple overview figures of the entire orbits.
+*figures_make_all_figures_orbit_043029_05233F.py* and *figures_make_all_figures_orbit_043044_0523D1.py* make figures for the paper. Individual subfigures produced by these two scripts must be combined and mofified in inkscape to produce the final versions.
+
+
