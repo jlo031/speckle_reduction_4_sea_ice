@@ -41,7 +41,7 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
 7. Merge features and labels from same orbits and crop to AO
 
-       conda run -n GLIA python merge_and_crop_orbits.py**
+       conda run -n geocoding python merge_and_crop_orbits.py**
 
 
 
