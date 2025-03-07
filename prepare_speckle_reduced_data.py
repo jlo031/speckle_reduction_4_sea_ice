@@ -33,7 +33,7 @@ tiff_files = [ f for f in os.listdir(S1_LOIC_DIR) if f.endswith('tiff') ]
 # loop over all tiff files
 for tiff_file in tiff_files:
 
-    logger.info(f'Processing tiff_file: {tiff_file}')
+    logger.info(f'Processing tiff_file: {tiff_file}\n')
 
     tiff_path = S1_LOIC_DIR / tiff_file
 
@@ -62,6 +62,7 @@ for tiff_file in tiff_files:
 
     if HH_output_path.is_file() and HV_output_path.is_file() and not overwrite:
         logger.info('HH and HV output files already exist\n')
+        logger.info(f'Finished tiff_file: {tiff_file}\n')
         continue
 
 # ------------------------------------------- #

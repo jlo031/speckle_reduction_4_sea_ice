@@ -32,7 +32,7 @@ S1_list = [ f.split('.SAFE')[0] for f in os.listdir(S1_L1_DIR) if f.endswith('SA
 # loop over all S1 images
 for S1_name in S1_list:
 
-    logger.info(f'Processing S1 image: {S1_name}')
+    logger.info(f'Processing S1 image: {S1_name}\n')
 
     # loop through all processing methods
     for procesing_method in procesing_methods:
@@ -78,6 +78,10 @@ for S1_name in S1_list:
             overwrite = False,
             loglevel = 'INFO',
         )
+
+        logger.info(f'Finished processing method: {procesing_method}\n')
+
+    logger.info(f'Finished S1 image: {S1_name}\n')
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #

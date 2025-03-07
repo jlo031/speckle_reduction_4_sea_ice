@@ -31,7 +31,7 @@ safe_folder_list = [ f for f in os.listdir(S1_L1_DIR) if f.endswith('SAFE') ]
 # loop over all safe folders
 for s in safe_folder_list:
 
-    logger.info(f'Processing safe_folder: {s}')
+    logger.info(f'Processing safe_folder: {s}\n')
 
     # get S1 basename
     S1_name = pathlib.Path(s).stem
@@ -67,7 +67,8 @@ for s in safe_folder_list:
     valid_mask_path = general_feat_folder / 'valid.img'
 
     if valid_mask_path.is_file() and not overwrite:
-        logger.info('valid mask already exists\n')
+        logger.info('valid mask already exists')
+        logger.info(f'Finished safe_folder: {s}\n')
         continue
 
     # read swath mask and landmask

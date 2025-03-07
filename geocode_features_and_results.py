@@ -33,7 +33,7 @@ S1_list = [ f.split('.SAFE')[0] for f in os.listdir(S1_L1_DIR) if f.endswith('SA
 # loop over all S1 images
 for S1_name in S1_list:
 
-    logger.info(f'Processing S1 image: {S1_name}')
+    logger.info(f'Processing S1 image: {S1_name}\n')
 
     # build full path to safe folder
     safe_folder = S1_L1_DIR / f'{S1_name}.SAFE'

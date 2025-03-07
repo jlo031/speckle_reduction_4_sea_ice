@@ -31,7 +31,7 @@ safe_folder_list = [ f for f in os.listdir(S1_L1_DIR) if f.endswith('SAFE') ]
 # loop over all safe folders
 for s in safe_folder_list:
 
-    logger.info(f'Processing safe_folder: {s}')
+    logger.info(f'Processing safe_folder: {s}\n')
 
     # get S1 basename
     S1_name = pathlib.Path(s).stem
@@ -92,6 +92,10 @@ for s in safe_folder_list:
             overwrite = overwrite,
             loglevel = 'INFO'
         )
+
+        logger.info(f'Finished ML: {ML}\n')
+
+    logger.info(f'Finished safe_folder: {s}\n')
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
