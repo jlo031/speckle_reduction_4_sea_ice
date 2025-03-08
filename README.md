@@ -55,11 +55,11 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
 10. Convert ROI json files to validation masks
 
-       conda run -n LABELME python convert_json_files_2_training_masks.py
+        conda run -n LABELME python convert_json_files_2_training_masks.py
 
 12. Evaluate results
 
-       conda run -GLIA python evaluate_results.py
+        conda run -GLIA python evaluate_results.py
 
 
 
