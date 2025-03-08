@@ -49,6 +49,12 @@ orbit_list = ['043044_0523D1']
 
 procesing_methods = [ 'ML_1x1', 'baseline', 'proposed']
 
+# cropped image coordinates (must be the same as in "evaluate_results.py")
+xmin = 800
+xmax = 10000
+ymin = 2500
+ymax = 10000
+
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
@@ -162,7 +168,7 @@ for orbit in orbit_list:
 # ------------------------------------------- #
 
         # make a cropped version for smaller file sizes in labelme
-        RGB_crop = RGB[:,800:10000,2500:10000]
+        RGB_crop = RGB[:,xmin:xmax,ymin:ymax]
 
         # write to tiff file
         n_bands, Ny, Nx = RGB_crop.shape

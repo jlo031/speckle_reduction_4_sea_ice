@@ -158,7 +158,7 @@ HV_ML_1x1_scaled  = (HV_ML_1x1 - (vmin_HV)) * ((new_max - new_min) / ((vmax_HV) 
 HH_ML_1x1_scaled  = np.clip(HH_ML_1x1_scaled, new_min, new_max)
 HV_ML_1x1_scaled  = np.clip(HV_ML_1x1_scaled, new_min, new_max)
 
-# stack to fals-color RGB
+# stack to false-color RGB
 RGB_ML_1x1 = np.stack((HV_ML_1x1_scaled, HH_ML_1x1_scaled, HH_ML_1x1_scaled),2)
 
 # ------------------ #
@@ -170,7 +170,7 @@ HV_ML_9x9_scaled  = (HV_ML_9x9 - (vmin_HV)) * ((new_max - new_min) / ((vmax_HV) 
 HH_ML_9x9_scaled  = np.clip(HH_ML_9x9_scaled, new_min, new_max)
 HV_ML_9x9_scaled  = np.clip(HV_ML_9x9_scaled, new_min, new_max)
 
-# stack to fals-color RGB
+# stack to false-color RGB
 RGB_ML_9x9 = np.stack((HV_ML_9x9_scaled, HH_ML_9x9_scaled, HH_ML_9x9_scaled),2)
 
 # ------------------ #
@@ -182,7 +182,7 @@ HV_ML_21x21_scaled  = (HV_ML_21x21 - (vmin_HV)) * ((new_max - new_min) / ((vmax_
 HH_ML_21x21_scaled  = np.clip(HH_ML_21x21_scaled, new_min, new_max)
 HV_ML_21x21_scaled  = np.clip(HV_ML_21x21_scaled, new_min, new_max)
 
-# stack to fals-color RGB
+# stack to false-color RGB
 RGB_ML_21x21 = np.stack((HV_ML_21x21_scaled, HH_ML_21x21_scaled, HH_ML_21x21_scaled),2)
 
 # ------------------ #
@@ -194,7 +194,7 @@ HV_MuLoG_scaled  = (HV_MuLoG - (vmin_HV)) * ((new_max - new_min) / ((vmax_HV) - 
 HH_MuLoG_scaled  = np.clip(HH_MuLoG_scaled, new_min, new_max)
 HV_MuLoG_scaled  = np.clip(HV_MuLoG_scaled, new_min, new_max)
 
-# stack to fals-color RGB
+# stack to false-color RGB
 RGB_MuLoG = np.stack((HV_MuLoG_scaled, HH_MuLoG_scaled, HH_MuLoG_scaled),2)
 
 # ------------------ #
@@ -206,7 +206,7 @@ HV_SARBM3D_scaled  = (HV_SARBM3D - (vmin_HV)) * ((new_max - new_min) / ((vmax_HV
 HH_SARBM3D_scaled  = np.clip(HH_SARBM3D_scaled, new_min, new_max)
 HV_SARBM3D_scaled  = np.clip(HV_SARBM3D_scaled, new_min, new_max)
 
-# stack to fals-color RGB
+# stack to false-color RGB
 RGB_SARBM3D = np.stack((HV_SARBM3D_scaled, HH_SARBM3D_scaled, HH_SARBM3D_scaled),2)
 
 # ------------------ #
@@ -218,7 +218,7 @@ HV_baseline_scaled  = (HV_baseline - (vmin_HV)) * ((new_max - new_min) / ((vmax_
 HH_baseline_scaled  = np.clip(HH_baseline_scaled, new_min, new_max)
 HV_baseline_scaled  = np.clip(HV_baseline_scaled, new_min, new_max)
 
-# stack to fals-color RGB
+# stack to false-color RGB
 RGB_baseline = np.stack((HV_baseline_scaled, HH_baseline_scaled, HH_baseline_scaled),2)
 
 # ------------------ #
@@ -230,7 +230,7 @@ HV_proposed_scaled  = (HV_proposed - (vmin_HV)) * ((new_max - new_min) / ((vmax_
 HH_proposed_scaled  = np.clip(HH_proposed_scaled, new_min, new_max)
 HV_proposed_scaled  = np.clip(HV_proposed_scaled, new_min, new_max)
 
-# stack to fals-color RGB
+# stack to false-color RGB
 RGB_proposed = np.stack((HV_proposed_scaled, HH_proposed_scaled, HH_proposed_scaled),2)
 
 # --------------------------------------------------------------- #
