@@ -51,11 +51,13 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
        ./label_geocoded_AOI_images.sh /media/jo/LaCie_Q/EO_data/speckle_reduction_tests/Sentinel-1/RGBs config/labels.txt 
 
+   This script can/should be adjusted to produced multi-channel and single-channel false-color RGBs for easy labeling in LABELME 
+
 10. Convert ROI json files to validation masks
 
        conda run -n LABELME python convert_json_files_2_training_masks.py
 
-11. Evaluate results
+12. Evaluate results
 
        conda run -GLIA python evaluate_results.py
 
