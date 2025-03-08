@@ -29,7 +29,7 @@ logger.add(sys.stderr, level=loglevel)
 # define input parameters
 
 # overwrite exisiting scaled RGB image files
-overwrite = True
+overwrite = False
 
 # percentiles for cropping
 min_perc = 5
@@ -41,8 +41,8 @@ new_max = 255
 
 # RGB channels for scaled image
 red   = 'HV'
-green = 'HV'
-blue  = 'HV'
+green = 'HH'
+blue  = 'HH'
 
 orbit_list = ['043029_05233F', '043044_0523D1']
 orbit_list = ['043044_0523D1']
