@@ -29,11 +29,11 @@ logger.add(sys.stderr, level=loglevel)
 # define input parameters
 
 # overwrite exisiting scaled RGB image files
-overwrite = False
+overwrite = True
 
 # percentiles for cropping
-min_perc = 0.25
-max_perc = 99.75
+min_perc = 5
+max_perc = 95
 
 # min/max values for scaled image
 new_min = 0
@@ -45,8 +45,9 @@ green = 'HV'
 blue  = 'HV'
 
 orbit_list = ['043029_05233F', '043044_0523D1']
+orbit_list = ['043044_0523D1']
 
-procesing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
+procesing_methods = [ 'ML_1x1', 'baseline', 'proposed']
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -72,13 +73,16 @@ for orbit in orbit_list:
         current_file_list.sort()
 
         # build path to final RGB output
-        rgb_output_path = S1_RGB_DIR / f'{orbit}_{processing_method}_RGB.tiff'
+        rgb_output_path      = S1_RGB_DIR / f'{orbit}_{processing_method}_RGB.tiff'
+        rgb_output_path_crop = S1_RGB_DIR / f'{orbit}_{processing_method}_RGB_CROP.tiff'
 
-        if rgb_output_path.is_file() and not overwrite:
+
+        if rgb_output_path.is_file() and rgb_output_path_crop.is_file() and not overwrite:
             logger.info('RGB output file already exists')
             logger.info('Finished processing method: {processing_method}\n')
             continue
 
+# ------------------------------------------- #
 
         logger.info('Reading data')
 
@@ -86,6 +90,7 @@ for orbit in orbit_list:
         HH = gdal.Open((orbit_AOI_folder/f'Sigma0_HH_db_{processing_method}_crop.tiff').as_posix()).ReadAsArray()
         HV = gdal.Open((orbit_AOI_folder/f'Sigma0_HV_db_{processing_method}_crop.tiff').as_posix()).ReadAsArray()
 
+# ------------------------------------------- #
 
         logger.info('Scaling data')
 
@@ -94,6 +99,12 @@ for orbit in orbit_list:
         HH_max = np.nanpercentile(HH,max_perc)
         HV_min = np.nanpercentile(HV,min_perc)
         HV_max = np.nanpercentile(HV,max_perc)
+
+        # or set them manually
+        HH_min = -30
+        HH_max = -5
+        HV_min = -40
+        HV_max = -15
 
         # clip to min and max
         HH[HH<HH_min] = HH_min
@@ -135,6 +146,7 @@ for orbit in orbit_list:
         # round and convert RGB to uint8
         RGB = RGB.astype(np.uint8)
 
+# ------------------------------------------- #
 
         logger.info('Saving RGB')
 
@@ -147,7 +159,22 @@ for orbit in orbit_list:
         output.FlushCache()
         output = None
 
-    
+# ------------------------------------------- #
+
+        # make a cropped version for smaller file sizes in labelme
+        RGB_crop = RGB[:,800:10000,2500:10000]
+
+        # write to tiff file
+        n_bands, Ny, Nx = RGB_crop.shape
+        output = gdal.GetDriverByName('GTiff').Create(rgb_output_path_crop.as_posix(), Nx, Ny, n_bands, gdal.GDT_Byte)
+        for b in np.arange(n_bands):
+            output.GetRasterBand(int(b+1)).WriteArray(RGB_crop[b,:,:])
+
+        output.FlushCache()
+        output = None
+
+# ------------------------------------------- #
+
         logger.info(f'Finished processing method: {processing_method}\n')
 
     logger.info(f'Finished orbit: {orbit}\n')
