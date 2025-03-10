@@ -15,31 +15,31 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
 ### Workflow
 
-1. Unpack the zip-files
+1. Unpack the zip-files.
 
        ./unpack_data.sh
 
-2. Prepare the speckle reduced data (tiff) for input into the *ice_type_classification" module*
+2. Prepare the speckle reduced data (tiff) for input into the *ice_type_classification" module*.
 
        conda run -n GLIA python prepare_speckle_reduced_data.py
 
-3. Extract HH, HV, IA, swath_mask, landmask for different ML levels
+3. Extract HH, HV, IA, swath_mask, landmask for different ML levels.
 
        conda run -n S1_processing python extract_features.py
 
-4. Get landmask and make valid mask
+4. Get landmask and make valid mask.
 
        conda run -n geocoding python get_landmask_make_valid_mask.py
 
-5. Classify all images using all speckle reduction methods separately
+5. Classify all images using all speckle reduction methods separately.
 
        conda run -n GLIA python classify_images.py
 
-6. Geocode features and results for visualization on map
+6. Geocode features and results for visualization on map.
 
        conda run -n geocoding python geocode_features_and_results.py
 
-7. Merge features and labels from same orbits and crop to AO
+7. Merge features and labels from same orbits and crop to AOI.
 
        conda run -n geocoding python merge_and_crop_orbits.py
 
@@ -47,25 +47,21 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
        conda run -n LABELME python make_scaled_RGBs_from_AOI_crops.py 
 
-9. Label ROIs along the swath boundaries
+9. Label ROIs along the swath boundaries.
 
        ./label_geocoded_AOI_images.sh /media/jo/LaCie_Q/EO_data/speckle_reduction_tests/Sentinel-1/RGBs config/labels.txt 
 
-10. Convert ROI json files to validation masks
+10. Convert ROI json files to validation masks.
 
         conda run -n LABELME python convert_json_2_training_masks.py
 
-12. Evaluate results
+11. Inspect ROIs and results visually. Best to run interactively for plots.
 
-        conda run -GLIA python evaluate_results.py
+        conda run -n LABELME python 
 
+12. Evaluate results numerically.
 
-
-
-Use labelme to mark ROIs for different ice types around the swath boundaries.  
-Evaluate classifcation accuracy and confusion matrix for these ROIs.
-Make figures.
-
+        conda run -LABELME python evaluate_results.py check_ROIs_and_results_visually.py
 
 
 ### Figures
