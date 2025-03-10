@@ -61,7 +61,7 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
 12. Evaluate results numerically.
 
-        conda run -LABELME python evaluate_results.py evaluate_results.py
+        conda run -n LABELME python evaluate_results.py evaluate_results.py
 
 
 ### Figures
