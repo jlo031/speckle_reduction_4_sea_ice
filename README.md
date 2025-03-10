@@ -57,11 +57,11 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
 
 11. Inspect ROIs and results visually. Best to run interactively for plots.
 
-        conda run -n LABELME python 
+        conda run -n LABELME python check_ROIs_and_results_visually.py
 
 12. Evaluate results numerically.
 
-        conda run -LABELME python evaluate_results.py check_ROIs_and_results_visually.py
+        conda run -LABELME python evaluate_results.py evaluate_results.py
 
 
 ### Figures
