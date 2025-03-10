@@ -1,4 +1,4 @@
-# ---- This is <check_results.py> ----
+# ---- This is <check_ROIs_and_results_visually.py> ----
 
 """
 Check classification results for input imgage.
@@ -514,6 +514,6 @@ plt.show()
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-# ---- End of <check_results.py> ----
+# ---- End of <check_ROIs_and_results_visually.py> ----
 
 

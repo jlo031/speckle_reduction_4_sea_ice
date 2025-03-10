@@ -19,7 +19,7 @@ from config.folder_structure import *
 
 labels_path = './config/labels.txt'
 
-overwrite = False
+overwrite = True
 
 output_format = 'ENVI'
 
