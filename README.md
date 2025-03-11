@@ -12,7 +12,7 @@ Sentinel-1 images over Beligica Bank during the CIRFA-22 are selected by Johanne
 
 Tiff files with calibrated and speckle reduced-data are provided by Loic and Ines.
 
-### Complete conda env
+### Set up conda env
     # create and activate new environment
     conda create -y -n sr4si gdal
     conda activate sr4si
@@ -25,6 +25,7 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
     # install own libraries
     pip install git+https://github.com/jlo031/labelme_utils
     pip install git+https://github.com/jlo031/geocoding
+    pip install git+https://github.com/jlo031/GLIA
 
 
 ### Workflow
