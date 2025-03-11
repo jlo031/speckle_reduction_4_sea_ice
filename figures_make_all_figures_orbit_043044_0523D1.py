@@ -11,6 +11,8 @@ import sys
 
 from loguru import logger
 
+import labelme_utils.json_conversion as lm_json
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
@@ -38,15 +40,37 @@ make_AOI_overviews_RGB_and_labels = True
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-# set parameters for RGBs and plotting
+#orbit = '043029_05233F'
+orbit = '043044_0523D1'
 
+# cropped image coordinates (must be the same as in "make_scaled_RGBs_from_AOI_crops.py")
+xmin = 800
+xmax = 10000
+ymin = 2500
+ymax = 10000
+
+# parameters for RGB scaling
 vmin_HH = -35
 vmax_HH = 0
 vmin_HV = -40
 vmax_HV = -5
 
+# linewidth for ROIs
+linewidth_small = 2
+linewidth_large = 3
+
+# grid labels
 x_grid = [-45, -30, -15, 0, 15, 30]
 y_grid = [76, 79, 82, 85]
+
+# draw ROI polygons on plots 
+show_polygons = True
+show_polygons = False
+
+if show_polygons:
+    output_string = '_ROIs'
+else:
+    output_string = ''
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -82,41 +106,68 @@ legend_entries = [
 ]
 legend_properties = {'weight':'bold'}
 
-# --------------------------------------------------------------- #
-# --------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
 
-# load data
-logger.info('Loading data ...')
+# get class polygons
 
-##orbit = '043029_05233F'
-orbit = '043044_0523D1'
+# define json path
+json_path = S1_RGB_DIR / f'{orbit}_proposed_RGB_CROP.json'
+labels_path = 'config/labels.txt'
+
+# get class name list
+class_names = lm_json.get_class_name_list_from_labels_txt(labels_path)
+
+# get class_labels_dict
+class_labels_dict = lm_json.get_label_index_mapping(class_names)
+
+# get polygons from json file
+shapes, label_index_dict = lm_json.load_training_shapes(json_path, label_index_mapping=class_labels_dict)
+
+# get number of polygons
+N_polygons = np.size(shapes)
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+\
+logger.info('Loading intensities ...')
 
 # load intensities
 intensities_ML_1x1   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_ML_1x1_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
+intensities_proposed = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_proposed_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_ML_9x9   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_ML_9x9_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_ML_21x21 = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_ML_21x21_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_MuLoG    = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_MuLoG_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_SARBM3D_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
 intensities_baseline = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_baseline_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
-intensities_proposed = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'HH_HV_proposed_crop.tiff').as_posix()).ReadAsArray().transpose(1,2,0)
+
+
+logger.info('Loading labels ...')
 
 # load labels
 labels_ML_1x1   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_ML_1x1_crop.tiff').as_posix()).ReadAsArray()
+labels_proposed = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_proposed_crop.tiff').as_posix()).ReadAsArray()
 labels_ML_9x9   = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_ML_9x9_crop.tiff').as_posix()).ReadAsArray()
 labels_ML_21x21 = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_ML_21x21_crop.tiff').as_posix()).ReadAsArray()
 labels_MuLoG    = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_MuLoG_crop.tiff').as_posix()).ReadAsArray()
 labels_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_SARBM3D_crop.tiff').as_posix()).ReadAsArray()
 labels_baseline = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_baseline_crop.tiff').as_posix()).ReadAsArray()
-labels_proposed = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_proposed_crop.tiff').as_posix()).ReadAsArray()
+
+
+logger.info('Loading validation mask ...')
+
+# load validation mask
+validation_mask = gdal.Open((S1_VAL_DIR / f'{orbit}_proposed_RGB_CROP_training_mask.img').as_posix()).ReadAsArray()
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
-# make intensity RGBs
 logger.info('Making intensity RGBs ...')
 
 HH_ML_1x1   = intensities_ML_1x1[:,:,0]
 HV_ML_1x1   = intensities_ML_1x1[:,:,1]
+HH_proposed = intensities_proposed[:,:,0]
+HV_proposed = intensities_proposed[:,:,1]
 HH_ML_9x9   = intensities_ML_9x9[:,:,0]
 HV_ML_9x9   = intensities_ML_9x9[:,:,1]
 HH_ML_21x21 = intensities_ML_21x21[:,:,0]
@@ -127,11 +178,11 @@ HH_SARBM3D  = intensities_SARBM3D[:,:,0]
 HV_SARBM3D  = intensities_SARBM3D[:,:,1]
 HH_baseline = intensities_baseline[:,:,0]
 HV_baseline = intensities_baseline[:,:,1]
-HH_proposed = intensities_proposed[:,:,0]
-HV_proposed = intensities_proposed[:,:,1]
 
 HH_ML_1x1[HH_ML_1x1==0] = np.nan
 HV_ML_1x1[HV_ML_1x1==0] = np.nan
+HH_proposed[HH_proposed==0] = np.nan
+HV_proposed[HV_proposed==0] = np.nan
 HH_ML_9x9[HH_ML_9x9==0] = np.nan
 HV_ML_9x9[HV_ML_9x9==0] = np.nan
 HH_ML_21x21[HH_ML_21x21==0] = np.nan
@@ -142,10 +193,9 @@ HH_SARBM3D[HH_SARBM3D==0] = np.nan
 HV_SARBM3D[HV_SARBM3D==0] = np.nan
 HH_baseline[HH_baseline==0] = np.nan
 HV_baseline[HV_baseline==0] = np.nan
-HH_proposed[HH_proposed==0] = np.nan
-HV_proposed[HV_proposed==0] = np.nan
 
-# if you want to stack to false-color RGB, set new min/max values
+
+# set new min/max values for RGBs
 new_min = 0
 new_max = 1
 
@@ -160,6 +210,18 @@ HV_ML_1x1_scaled  = np.clip(HV_ML_1x1_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_ML_1x1 = np.stack((HV_ML_1x1_scaled, HH_ML_1x1_scaled, HH_ML_1x1_scaled),2)
+
+# ------------------ #
+
+# scale both channels to [new_min,new_max] and clip values below and above
+# linear map from sigma0 in dB to new_min and new_max
+HH_proposed_scaled  = (HH_proposed - (vmin_HH)) * ((new_max - new_min) / ((vmax_HH) - (vmin_HH))) + new_min
+HV_proposed_scaled  = (HV_proposed - (vmin_HV)) * ((new_max - new_min) / ((vmax_HV) - (vmin_HV))) + new_min
+HH_proposed_scaled  = np.clip(HH_proposed_scaled, new_min, new_max)
+HV_proposed_scaled  = np.clip(HV_proposed_scaled, new_min, new_max)
+
+# stack to false-color RGB
+RGB_proposed = np.stack((HV_proposed_scaled, HH_proposed_scaled, HH_proposed_scaled),2)
 
 # ------------------ #
 
@@ -221,25 +283,21 @@ HV_baseline_scaled  = np.clip(HV_baseline_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_baseline = np.stack((HV_baseline_scaled, HH_baseline_scaled, HH_baseline_scaled),2)
 
-# ------------------ #
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
 
-# scale both channels to [new_min,new_max] and clip values below and above
-# linear map from sigma0 in dB to new_min and new_max
-HH_proposed_scaled  = (HH_proposed - (vmin_HH)) * ((new_max - new_min) / ((vmax_HH) - (vmin_HH))) + new_min
-HV_proposed_scaled  = (HV_proposed - (vmin_HV)) * ((new_max - new_min) / ((vmax_HV) - (vmin_HV))) + new_min
-HH_proposed_scaled  = np.clip(HH_proposed_scaled, new_min, new_max)
-HV_proposed_scaled  = np.clip(HV_proposed_scaled, new_min, new_max)
-
-# stack to false-color RGB
-RGB_proposed = np.stack((HV_proposed_scaled, HH_proposed_scaled, HH_proposed_scaled),2)
+# make full size validation mask
+val_mask = np.zeros(labels_proposed.shape)
+val_mask[xmin:xmax,ymin:ymax] = validation_mask
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
-
-# SHOW RGB OVERVIEW OF AOI
+# SHOW RGB OVERVIEW OF AOI WITH/WITHOUT POLYGONS
 
 if make_AOI_overviews_RGB:
 
@@ -247,7 +305,7 @@ if make_AOI_overviews_RGB:
 
     logger.info('Making AOI overviews showing intensities ...')
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_1x1'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_1x1{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_1x1)
@@ -260,6 +318,25 @@ if make_AOI_overviews_RGB:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -275,7 +352,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_9x9'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_9x9{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_9x9)
@@ -288,6 +365,25 @@ if make_AOI_overviews_RGB:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -303,7 +399,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_21x21'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_21x21{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_21x21)
@@ -316,6 +412,25 @@ if make_AOI_overviews_RGB:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -331,7 +446,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_MuLoG'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_MuLoG{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_MuLoG)
@@ -344,6 +459,25 @@ if make_AOI_overviews_RGB:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -359,7 +493,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_SARBM3D'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_SARBM3D{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_SARBM3D)
@@ -372,6 +506,25 @@ if make_AOI_overviews_RGB:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -387,7 +540,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_baseline'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_baseline{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_baseline)
@@ -400,6 +553,25 @@ if make_AOI_overviews_RGB:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -415,7 +587,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_proposed)
@@ -428,6 +600,25 @@ if make_AOI_overviews_RGB:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -446,7 +637,7 @@ if make_AOI_overviews_RGB:
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
-# SHOW LABELS OVERVIEW OF AOI
+# SHOW LABELS OVERVIEW OF AOI WITH/WITHOUT POLYGONS
 
 if make_AOI_overviews_labels:
 
@@ -454,7 +645,7 @@ if make_AOI_overviews_labels:
 
     logger.info('Making AOI overviews showing labels ...')
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_1x1'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_1x1{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_1x1, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -468,7 +659,25 @@ if make_AOI_overviews_labels:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
-    plt.savefig(f'{output_path}.png', dpi=300)
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -484,7 +693,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_9x9'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_9x9{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_9x9, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -498,6 +707,25 @@ if make_AOI_overviews_labels:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -512,7 +740,8 @@ if make_AOI_overviews_labels:
     os.system(convert_png_command)
 
 # --------------------------------------------------------------- #
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_21x21'
+
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_21x21{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_21x21, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -526,6 +755,25 @@ if make_AOI_overviews_labels:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -541,7 +789,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_MuLoG'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_MuLoG{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_MuLoG, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -555,6 +803,25 @@ if make_AOI_overviews_labels:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -570,7 +837,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_SARBM3D'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_SARBM3D{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_SARBM3D, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -584,6 +851,25 @@ if make_AOI_overviews_labels:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -599,7 +885,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_baseline'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_baseline{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_baseline, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -613,6 +899,25 @@ if make_AOI_overviews_labels:
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
 
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
+
     plt.savefig(f'{output_path}.pdf', dpi=300)
 
     plt.close('all')
@@ -628,7 +933,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed'
+    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_proposed, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -641,6 +946,25 @@ if make_AOI_overviews_labels:
     ax.set_yticklabels(['0','100','200','300'])
     ax.set_ylabel('Distance north (km)')
     ax.set_xlabel('Distance east (km)')
+
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            ax.plot(xvec,yvec,color = class_colors_norm[cl], linewidth=linewidth_large)
+
 
     plt.savefig(f'{output_path}.pdf', dpi=300)
     
@@ -710,7 +1034,7 @@ if make_closup_label_comparisons:
     # swath boundary effect
     # "artificial" class in ML due to averaging
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_1'
+    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_1{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -726,6 +1050,31 @@ if make_closup_label_comparisons:
     axes[3].set_title('SARBM3D')
     axes[4].set_title('baseline method')
     axes[5].set_title('proposed method')
+
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[1].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[2].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[3].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[4].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[5].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            #axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+
 
     axes[0].set_xlim([8350,8650])
     axes[0].set_ylim([2850,2550])
@@ -761,7 +1110,7 @@ if make_closup_label_comparisons:
     # example 2:
     # small leads disappearing with ML
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_2'
+    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_2{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -777,6 +1126,31 @@ if make_closup_label_comparisons:
     axes[3].set_title('SARBM3D')
     axes[4].set_title('baseline method')
     axes[5].set_title('proposed method')
+
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[1].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[2].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[3].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[4].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[5].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            #axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+
 
     axes[0].set_xlim([1150,1450])
     axes[0].set_ylim([9900,9600])
@@ -812,7 +1186,7 @@ if make_closup_label_comparisons:
     # example 3:
     # swath boundary effect
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3'
+    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -828,6 +1202,31 @@ if make_closup_label_comparisons:
     axes[3].set_title('SARBM3D')
     axes[4].set_title('baseline method')
     axes[5].set_title('proposed method')
+
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[1].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[2].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[3].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[4].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[5].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            #axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+
 
     axes[0].set_xlim([4350,4650])
     axes[0].set_ylim([7950,7650])
@@ -863,7 +1262,7 @@ if make_closup_label_comparisons:
     # example 4:
     # swath boundary effect
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_4'
+    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_4{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -879,6 +1278,31 @@ if make_closup_label_comparisons:
     axes[3].set_title('SARBM3D')
     axes[4].set_title('baseline method')
     axes[5].set_title('proposed method')
+
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[1].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[2].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[3].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[4].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[5].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            #axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+
 
     axes[0].set_xlim([8250,8550])
     axes[0].set_ylim([2750,2450])
@@ -913,7 +1337,7 @@ if make_closup_label_comparisons:
 
     # example 5:
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_5'
+    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_5{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -929,6 +1353,31 @@ if make_closup_label_comparisons:
     axes[3].set_title('SARBM3D')
     axes[4].set_title('baseline method')
     axes[5].set_title('proposed method')
+
+    if show_polygons:
+        # loop over all polygons and draw them onto the figure
+        for i in np.arange(N_polygons):
+            p   = shapes[i]
+            cl  = label_index_dict[p['label']]
+            polygon = np.array(p['points'])
+
+            x_start, x_end = polygon[:,0]
+            y_start, y_end = polygon[:,1]
+            x_start = x_start + ymin
+            x_end = x_end + ymin
+            y_start = y_start + xmin
+            y_end = y_end + xmin
+            xvec = [x_start, x_end, x_end, x_start, x_start]
+            yvec = [y_start, y_start, y_end, y_end, y_start]    
+
+            axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[1].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[2].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[3].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[4].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            axes[5].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+            #axes[0].plot(xvec,yvec,color = [1,0,0], linewidth=linewidth_small)
+
 
     axes[0].set_xlim([3450,3750])
     axes[0].set_ylim([9250,8950])
