@@ -18,9 +18,13 @@ Tiff files with calibrated and speckle reduced-data are provided by Loic and Ine
     conda activate sr4si
 
     # install required packages
-    conda install -y loguru matplotlib scikit-learn cartopy
+    conda install -y loguru matplotlib scikit-learn cartopy scipy pillow lxml python-dotenv
     pip install ipython
     pip install labelme
+
+    # install own libraries
+    pip install git+https://github.com/jlo031/labelme_utils
+    pip install git+https://github.com/jlo031/geocoding
 
 
 ### Workflow
