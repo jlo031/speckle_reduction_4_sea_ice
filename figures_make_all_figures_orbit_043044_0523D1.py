@@ -65,7 +65,7 @@ y_grid = [76, 79, 82, 85]
 
 # draw ROI polygons on plots 
 show_polygons = True
-show_polygons = False
+##show_polygons = False
 
 if show_polygons:
     output_string = '_ROIs'
