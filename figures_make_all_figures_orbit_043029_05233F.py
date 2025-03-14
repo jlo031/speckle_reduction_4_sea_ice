@@ -247,7 +247,7 @@ if make_AOI_overviews_RGB:
 
     logger.info('Making AOI overviews showing intensities ...')
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_1x1'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_1x1'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_1x1)
@@ -275,7 +275,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_9x9'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_9x9'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_9x9)
@@ -303,7 +303,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_21x21'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_21x21'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_21x21)
@@ -331,7 +331,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_MuLoG'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_MuLoG'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_MuLoG)
@@ -359,7 +359,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_SARBM3D'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_SARBM3D'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_SARBM3D)
@@ -387,7 +387,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_baseline'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_baseline'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_baseline)
@@ -415,7 +415,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_proposed)
@@ -454,7 +454,7 @@ if make_AOI_overviews_labels:
 
     logger.info('Making AOI overviews showing labels ...')
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_1x1'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_1x1'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_1x1, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -484,7 +484,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_9x9'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_9x9'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_9x9, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -512,7 +512,7 @@ if make_AOI_overviews_labels:
     os.system(convert_png_command)
 
 # --------------------------------------------------------------- #
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_21x21'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_21x21'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_21x21, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -541,7 +541,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_MuLoG'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_MuLoG'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_MuLoG, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -570,7 +570,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_SARBM3D'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_SARBM3D'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_SARBM3D, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -599,7 +599,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_baseline'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_baseline'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_baseline, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -628,7 +628,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_proposed, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -662,17 +662,17 @@ if make_AOI_overviews_labels:
 
 # move figures into subfolders
 
-png_dir = PAPER_FIG_DIR / 'PNG'
-svg_dir = PAPER_FIG_DIR / 'SVG'
-pdf_dir = PAPER_FIG_DIR / 'PDF'
+png_dir = FIG_DIR / 'PNG'
+svg_dir = FIG_DIR / 'SVG'
+pdf_dir = FIG_DIR / 'PDF'
 
 png_dir.mkdir(parents=True, exist_ok=True)
 svg_dir.mkdir(parents=True, exist_ok=True)
 pdf_dir.mkdir(parents=True, exist_ok=True)
 
-os.system(f'mv {PAPER_FIG_DIR}/*png {png_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*svg {svg_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*pdf {pdf_dir}/.')
+os.system(f'mv {FIG_DIR}/*png {png_dir}/.')
+os.system(f'mv {FIG_DIR}/*svg {svg_dir}/.')
+os.system(f'mv {FIG_DIR}/*pdf {pdf_dir}/.')
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -710,7 +710,7 @@ if make_closup_label_comparisons:
     # swath boundary effect
     # "artificial" class in ML due to averaging
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_1'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_1'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -761,7 +761,7 @@ if make_closup_label_comparisons:
     # example 2:
     # small leads disappearing with ML
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_2'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_2'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -812,7 +812,7 @@ if make_closup_label_comparisons:
     # example 3:
     # swath boundary effect
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -863,7 +863,7 @@ if make_closup_label_comparisons:
     # example 4:
     # swath boundary effect
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_4'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_4'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -913,7 +913,7 @@ if make_closup_label_comparisons:
 
     # example 5:
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_5'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_5'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -966,17 +966,17 @@ if make_closup_label_comparisons:
 
 # move figures into subfolders
 
-png_dir = PAPER_FIG_DIR / 'PNG'
-svg_dir = PAPER_FIG_DIR / 'SVG'
-pdf_dir = PAPER_FIG_DIR / 'PDF'
+png_dir = FIG_DIR / 'PNG'
+svg_dir = FIG_DIR / 'SVG'
+pdf_dir = FIG_DIR / 'PDF'
 
 png_dir.mkdir(parents=True, exist_ok=True)
 svg_dir.mkdir(parents=True, exist_ok=True)
 pdf_dir.mkdir(parents=True, exist_ok=True)
 
-os.system(f'mv {PAPER_FIG_DIR}/*png {png_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*svg {svg_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*pdf {pdf_dir}/.')
+os.system(f'mv {FIG_DIR}/*png {png_dir}/.')
+os.system(f'mv {FIG_DIR}/*svg {svg_dir}/.')
+os.system(f'mv {FIG_DIR}/*pdf {pdf_dir}/.')
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #

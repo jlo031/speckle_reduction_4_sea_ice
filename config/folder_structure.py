@@ -11,7 +11,7 @@ import pathlib
 
 ##DATA_DIR      = pathlib.Path('/media/Data/speckle_reduction_tests')
 ##DATA_DIR      = pathlib.Path('/media/jo/EO_disk/data/speckle_reduction_tests')
-DATA_DIR      = pathlib.Path('/media/jo/LaCie_Q/EO_data/speckle_reduction_tests')
+DATA_DIR      = pathlib.Path('/media/johannes/LaCie_Q/EO_data/speckle_reduction_tests')
 
 # -------------------------------------------------------------------------- #
 

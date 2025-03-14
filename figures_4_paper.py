@@ -52,15 +52,6 @@ linewidth_large = 3
 x_grid = [-45, -30, -15, 0, 15, 30]
 y_grid = [76, 79, 82, 85]
 
-# draw ROI polygons on plots 
-show_polygons = True
-##show_polygons = False
-
-if show_polygons:
-    output_string = '_ROIs'
-else:
-    output_string = ''
-
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
@@ -118,7 +109,7 @@ N_polygons = np.size(shapes)
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
-\
+
 logger.info('Loading intensities ...')
 
 # load intensities
@@ -143,10 +134,19 @@ labels_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_SARBM3D_crop
 labels_baseline = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_baseline_crop.tiff').as_posix()).ReadAsArray()
 
 
+"""
 logger.info('Loading validation mask ...')
 
 # load validation mask
 validation_mask = gdal.Open((S1_VAL_DIR / f'{orbit}_proposed_RGB_CROP_training_mask.img').as_posix()).ReadAsArray()
+
+# make full size validation mask
+val_mask = np.zeros(labels_proposed.shape)
+val_mask[xmin:xmax,ymin:ymax] = validation_mask
+
+# clean up
+validation_mask = None
+"""
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -183,6 +183,20 @@ HV_SARBM3D[HV_SARBM3D==0] = np.nan
 HH_baseline[HH_baseline==0] = np.nan
 HV_baseline[HV_baseline==0] = np.nan
 
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
+
+# clean up
+intensities_ML_1x1 = None
+intensities_proposed = None
+intensities_ML_9x9 = None
+intensities_ML_21x21 = None
+intensities_MuLoG = None
+intensities_SARBM3D = None
+intensities_baseline = None
+
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
 
 # set new min/max values for RGBs
 new_min = 0
@@ -200,6 +214,12 @@ HV_ML_1x1_scaled  = np.clip(HV_ML_1x1_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_ML_1x1 = np.stack((HV_ML_1x1_scaled, HH_ML_1x1_scaled, HH_ML_1x1_scaled),2)
 
+# clean up
+HH_ML_1x1 = None
+HV_ML_1x1 = None
+HH_ML_1x1_scaled = None
+HV_ML_1x1_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -211,6 +231,12 @@ HV_proposed_scaled  = np.clip(HV_proposed_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_proposed = np.stack((HV_proposed_scaled, HH_proposed_scaled, HH_proposed_scaled),2)
+
+# clean up
+HH_proposed = None
+HV_proposed = None
+HH_proposed_scaled = None
+HH_proposed_scaled = None
 
 # ------------------ #
 
@@ -224,6 +250,12 @@ HV_ML_9x9_scaled  = np.clip(HV_ML_9x9_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_ML_9x9 = np.stack((HV_ML_9x9_scaled, HH_ML_9x9_scaled, HH_ML_9x9_scaled),2)
 
+# clean up
+HH_ML_9x9 = None
+HV_ML_9x9 = None
+HH_ML_9x9_scaled = None
+HV_ML_9x9_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -235,6 +267,12 @@ HV_ML_21x21_scaled  = np.clip(HV_ML_21x21_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_ML_21x21 = np.stack((HV_ML_21x21_scaled, HH_ML_21x21_scaled, HH_ML_21x21_scaled),2)
+
+# clean up
+HH_ML_21x21 = None
+HV_ML_21x21 = None
+HH_ML_21x21_scaled = None
+HV_ML_21x21_scaled = None
 
 # ------------------ #
 
@@ -248,6 +286,12 @@ HV_MuLoG_scaled  = np.clip(HV_MuLoG_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_MuLoG = np.stack((HV_MuLoG_scaled, HH_MuLoG_scaled, HH_MuLoG_scaled),2)
 
+# clean up
+HH_MuLoG = None
+HV_MuLoG = None
+HH_MuLoG_scaled = None
+HV_MuLoG_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -259,6 +303,12 @@ HV_SARBM3D_scaled  = np.clip(HV_SARBM3D_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_SARBM3D = np.stack((HV_SARBM3D_scaled, HH_SARBM3D_scaled, HH_SARBM3D_scaled),2)
+
+# clean up
+HH_SARBM3D = None
+HV_SARBM3D = None
+HH_SARBM3D_scaled = None
+HV_SARBM3D_scaled = None
 
 # ------------------ #
 
@@ -272,14 +322,15 @@ HV_baseline_scaled  = np.clip(HV_baseline_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_baseline = np.stack((HV_baseline_scaled, HH_baseline_scaled, HH_baseline_scaled),2)
 
-# --------------------------------------------------------------- #
-# --------------------------------------------------------------- #
+# clean up
+HH_baseline = None
+HV_baseline = None
+HH_baseline_scaled = None
+HV_baseline_scaled = None
+
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
-# make full size validation mask
-val_mask = np.zeros(labels_proposed.shape)
-val_mask[xmin:xmax,ymin:ymax] = validation_mask
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -287,6 +338,14 @@ val_mask[xmin:xmax,ymin:ymax] = validation_mask
 # --------------------------------------------------------------- #
 
 # SHOW RGB OVERVIEW OF AOI WITH/WITHOUT POLYGONS
+
+# draw ROI polygons on plots 
+show_polygons = True
+
+if show_polygons:
+    output_string = '_ROIs'
+else:
+    output_string = ''
 
 output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed{output_string}'
 
@@ -330,9 +389,6 @@ os.system(crop_pdf_cmd)
 convert_svg_command = f'pdf2svg {output_path}.pdf {output_path}.svg'
 os.system(convert_svg_command)
 
-convert_png_command = f'pdftoppm {output_path}.pdf {output_path} -r 300 -png -singlefile'
-os.system(convert_png_command)
-
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -340,6 +396,13 @@ os.system(convert_png_command)
 
 # SHOW LABELS OVERVIEW OF AOI WITH/WITHOUT POLYGONS
 
+# draw ROI polygons on plots 
+show_polygons = False
+
+if show_polygons:
+    output_string = '_ROIs'
+else:
+    output_string = ''
 
 output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed{output_string}'
 
@@ -384,15 +447,22 @@ os.system(crop_pdf_cmd)
 convert_svg_command = f'pdf2svg {output_path}.pdf {output_path}.svg'
 os.system(convert_svg_command)
 
-convert_png_command = f'pdftoppm {output_path}.pdf {output_path} -r 300 -png -singlefile'
-os.system(convert_png_command)
-
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
 # SHOW LABELS AS CLOSEUP COMPARISON
+
+# draw ROI polygons on plots 
+show_polygons = False
+
+if show_polygons:
+    output_string = '_ROIs'
+else:
+    output_string = ''
+
+
 
 # example 1:
 # swath boundary effect
@@ -608,16 +678,12 @@ os.system(crop_pdf_cmd)
 convert_svg_command = f'pdf2svg {output_path}.pdf {output_path}.svg'
 os.system(convert_svg_command)
 
-convert_png_command = f'pdftoppm {output_path}.pdf {output_path} -r 300 -png -singlefile'
-os.system(convert_png_command)
-
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
 # MAKE COLORBAR
-
 
 logger.info('Making colorbar figure ...')
 
@@ -639,9 +705,6 @@ os.system('rm *.pdf')
     
 convert_svg_command = f'pdf2svg {output_path}.pdf {output_path}.svg'
 os.system(convert_svg_command)
-
-convert_png_command = f'pdftoppm {output_path}.pdf {output_path} -r 300 -png -singlefile'
-os.system(convert_png_command)
 
 # --------------------------------------------------------------- #
 

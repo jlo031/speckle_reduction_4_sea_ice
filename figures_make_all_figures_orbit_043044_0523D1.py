@@ -194,6 +194,20 @@ HV_SARBM3D[HV_SARBM3D==0] = np.nan
 HH_baseline[HH_baseline==0] = np.nan
 HV_baseline[HV_baseline==0] = np.nan
 
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
+
+# clean up
+intensities_ML_1x1 = None
+intensities_proposed = None
+intensities_ML_9x9 = None
+intensities_ML_21x21 = None
+intensities_MuLoG = None
+intensities_SARBM3D = None
+intensities_baseline = None
+
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
 
 # set new min/max values for RGBs
 new_min = 0
@@ -211,6 +225,12 @@ HV_ML_1x1_scaled  = np.clip(HV_ML_1x1_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_ML_1x1 = np.stack((HV_ML_1x1_scaled, HH_ML_1x1_scaled, HH_ML_1x1_scaled),2)
 
+# clean up
+HH_ML_1x1 = None
+HV_ML_1x1 = None
+HH_ML_1x1_scaled = None
+HV_ML_1x1_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -222,6 +242,12 @@ HV_proposed_scaled  = np.clip(HV_proposed_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_proposed = np.stack((HV_proposed_scaled, HH_proposed_scaled, HH_proposed_scaled),2)
+
+# clean up
+HH_proposed = None
+HV_proposed = None
+HH_proposed_scaled = None
+HH_proposed_scaled = None
 
 # ------------------ #
 
@@ -235,6 +261,12 @@ HV_ML_9x9_scaled  = np.clip(HV_ML_9x9_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_ML_9x9 = np.stack((HV_ML_9x9_scaled, HH_ML_9x9_scaled, HH_ML_9x9_scaled),2)
 
+# clean up
+HH_ML_9x9 = None
+HV_ML_9x9 = None
+HH_ML_9x9_scaled = None
+HV_ML_9x9_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -246,6 +278,12 @@ HV_ML_21x21_scaled  = np.clip(HV_ML_21x21_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_ML_21x21 = np.stack((HV_ML_21x21_scaled, HH_ML_21x21_scaled, HH_ML_21x21_scaled),2)
+
+# clean up
+HH_ML_21x21 = None
+HV_ML_21x21 = None
+HH_ML_21x21_scaled = None
+HV_ML_21x21_scaled = None
 
 # ------------------ #
 
@@ -259,6 +297,12 @@ HV_MuLoG_scaled  = np.clip(HV_MuLoG_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_MuLoG = np.stack((HV_MuLoG_scaled, HH_MuLoG_scaled, HH_MuLoG_scaled),2)
 
+# clean up
+HH_MuLoG = None
+HV_MuLoG = None
+HH_MuLoG_scaled = None
+HV_MuLoG_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -270,6 +314,12 @@ HV_SARBM3D_scaled  = np.clip(HV_SARBM3D_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_SARBM3D = np.stack((HV_SARBM3D_scaled, HH_SARBM3D_scaled, HH_SARBM3D_scaled),2)
+
+# clean up
+HH_SARBM3D = None
+HV_SARBM3D = None
+HH_SARBM3D_scaled = None
+HV_SARBM3D_scaled = None
 
 # ------------------ #
 
@@ -283,8 +333,12 @@ HV_baseline_scaled  = np.clip(HV_baseline_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_baseline = np.stack((HV_baseline_scaled, HH_baseline_scaled, HH_baseline_scaled),2)
 
-# --------------------------------------------------------------- #
-# --------------------------------------------------------------- #
+# clean up
+HH_baseline = None
+HV_baseline = None
+HH_baseline_scaled = None
+HV_baseline_scaled = None
+
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
@@ -305,7 +359,7 @@ if make_AOI_overviews_RGB:
 
     logger.info('Making AOI overviews showing intensities ...')
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_1x1{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_1x1{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_1x1)
@@ -352,7 +406,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_9x9{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_9x9{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_9x9)
@@ -399,7 +453,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_21x21{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_ML_21x21{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_ML_21x21)
@@ -446,7 +500,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_MuLoG{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_MuLoG{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_MuLoG)
@@ -493,7 +547,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_SARBM3D{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_SARBM3D{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_SARBM3D)
@@ -540,7 +594,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_baseline{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_baseline{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_baseline)
@@ -587,7 +641,7 @@ if make_AOI_overviews_RGB:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(RGB_proposed)
@@ -645,7 +699,7 @@ if make_AOI_overviews_labels:
 
     logger.info('Making AOI overviews showing labels ...')
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_1x1{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_1x1{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_1x1, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -693,7 +747,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_9x9{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_9x9{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_9x9, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -741,7 +795,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_21x21{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_ML_21x21{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_ML_21x21, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -789,7 +843,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_MuLoG{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_MuLoG{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_MuLoG, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -837,7 +891,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_SARBM3D{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_SARBM3D{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_SARBM3D, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -885,7 +939,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_baseline{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_baseline{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_baseline, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -933,7 +987,7 @@ if make_AOI_overviews_labels:
 
 # --------------------------------------------------------------- #
 
-    output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed{output_string}'
+    output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed{output_string}'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
     ax.imshow(labels_proposed, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -986,17 +1040,17 @@ if make_AOI_overviews_labels:
 
 # move figures into subfolders
 
-png_dir = PAPER_FIG_DIR / 'PNG'
-svg_dir = PAPER_FIG_DIR / 'SVG'
-pdf_dir = PAPER_FIG_DIR / 'PDF'
+png_dir = FIG_DIR / 'PNG'
+svg_dir = FIG_DIR / 'SVG'
+pdf_dir = FIG_DIR / 'PDF'
 
 png_dir.mkdir(parents=True, exist_ok=True)
 svg_dir.mkdir(parents=True, exist_ok=True)
 pdf_dir.mkdir(parents=True, exist_ok=True)
 
-os.system(f'mv {PAPER_FIG_DIR}/*png {png_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*svg {svg_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*pdf {pdf_dir}/.')
+os.system(f'mv {FIG_DIR}/*png {png_dir}/.')
+os.system(f'mv {FIG_DIR}/*svg {svg_dir}/.')
+os.system(f'mv {FIG_DIR}/*pdf {pdf_dir}/.')
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -1034,7 +1088,7 @@ if make_closup_label_comparisons:
     # swath boundary effect
     # "artificial" class in ML due to averaging
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_1{output_string}'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_1{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -1110,7 +1164,7 @@ if make_closup_label_comparisons:
     # example 2:
     # small leads disappearing with ML
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_2{output_string}'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_2{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -1186,7 +1240,7 @@ if make_closup_label_comparisons:
     # example 3:
     # swath boundary effect
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3{output_string}'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -1262,7 +1316,7 @@ if make_closup_label_comparisons:
     # example 4:
     # swath boundary effect
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_4{output_string}'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_4{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -1337,7 +1391,7 @@ if make_closup_label_comparisons:
 
     # example 5:
 
-    output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_5{output_string}'
+    output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_5{output_string}'
 
     fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
     axes = axes.ravel()
@@ -1415,17 +1469,17 @@ if make_closup_label_comparisons:
 
 # move figures into subfolders
 
-png_dir = PAPER_FIG_DIR / 'PNG'
-svg_dir = PAPER_FIG_DIR / 'SVG'
-pdf_dir = PAPER_FIG_DIR / 'PDF'
+png_dir = FIG_DIR / 'PNG'
+svg_dir = FIG_DIR / 'SVG'
+pdf_dir = FIG_DIR / 'PDF'
 
 png_dir.mkdir(parents=True, exist_ok=True)
 svg_dir.mkdir(parents=True, exist_ok=True)
 pdf_dir.mkdir(parents=True, exist_ok=True)
 
-os.system(f'mv {PAPER_FIG_DIR}/*png {png_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*svg {svg_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*pdf {pdf_dir}/.')
+os.system(f'mv {FIG_DIR}/*png {png_dir}/.')
+os.system(f'mv {FIG_DIR}/*svg {svg_dir}/.')
+os.system(f'mv {FIG_DIR}/*pdf {pdf_dir}/.')
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -1440,7 +1494,7 @@ if make_colorbar:
 
     plt.rcParams.update({'font.size': 15})
 
-    output_path = PAPER_FIG_DIR / f'colorbar'
+    output_path = FIG_DIR / f'colorbar'
 
     fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((7,5)))
     h_cbar = ax.imshow(labels_proposed, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -1464,17 +1518,17 @@ if make_colorbar:
 
     # move figures into subfolders
 
-    png_dir = PAPER_FIG_DIR / 'PNG'
-    svg_dir = PAPER_FIG_DIR / 'SVG'
-    pdf_dir = PAPER_FIG_DIR / 'PDF'
+    png_dir = FIG_DIR / 'PNG'
+    svg_dir = FIG_DIR / 'SVG'
+    pdf_dir = FIG_DIR / 'PDF'
 
     png_dir.mkdir(parents=True, exist_ok=True)
     svg_dir.mkdir(parents=True, exist_ok=True)
     pdf_dir.mkdir(parents=True, exist_ok=True)
 
-    os.system(f'mv {PAPER_FIG_DIR}/*png {png_dir}/.')
-    os.system(f'mv {PAPER_FIG_DIR}/*svg {svg_dir}/.')
-    os.system(f'mv {PAPER_FIG_DIR}/*pdf {pdf_dir}/.')
+    os.system(f'mv {FIG_DIR}/*png {png_dir}/.')
+    os.system(f'mv {FIG_DIR}/*svg {svg_dir}/.')
+    os.system(f'mv {FIG_DIR}/*pdf {pdf_dir}/.')
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
