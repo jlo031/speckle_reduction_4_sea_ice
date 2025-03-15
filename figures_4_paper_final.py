@@ -49,11 +49,11 @@ xmax = 10000
 ymin = 2500
 ymax = 10000
 
-fig1a = False
+fig1a = True
 fig1a_polygons = True
 fig1a_title = False
 
-fig1b = False
+fig1b = True
 fig1b_polygons = False
 fig1b_title = False
 
@@ -65,7 +65,7 @@ fig3 = False
 fig3_polygons = True
 fig3_title = True
 
-fig_colorbar = True
+fig_colorbar = False
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -141,6 +141,8 @@ if fig1a:
         output_string = ''
 
     output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed{output_string}'
+
+    plt.rcParams.update({'font.size': 13})
 
     # ------------------------ #
 
@@ -227,6 +229,8 @@ if fig1b:
 
     output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed{output_string}'
 
+    plt.rcParams.update({'font.size': 13})
+
     # ------------------------ #
 
     # load labels
@@ -296,6 +300,8 @@ if fig2:
         output_string = ''
 
     output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3{output_string}'
+
+    plt.rcParams.update({'font.size': 13})
 
     # ------------------------ #
 
@@ -386,6 +392,8 @@ if fig2:
 if fig3:
 
     logger.info('Preparing Fig 3')
+
+    plt.rcParams.update({'font.size': 13})
 
     if fig3_polygons:
         output_string = '_ROIs'
@@ -513,6 +521,8 @@ if fig_colorbar:
     logger.info('Making colorbar figure ...')
 
     output_path = PAPER_FIG_DIR / f'colorbar'
+
+    plt.rcParams.update({'font.size': 13})
 
     # ------------------------ #
 
