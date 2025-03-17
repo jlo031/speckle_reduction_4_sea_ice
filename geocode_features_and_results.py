@@ -16,11 +16,18 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# overwrite already processed files
+overwrite = False
+
+# logelevel
+loglevel = 'INFO'
+
+# pre-processing methods for classification
 processing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
+
+# geocoding parameters
 target_epsg = 3996
 pixel_spacing = 40
-
-overwrite = False
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -65,7 +72,7 @@ for S1_name in S1_list:
             resampling = 'near',
             keep_gcp_file = False,
             overwrite = overwrite,
-            loglevel = 'INFO',
+            loglevel = loglevel
         )
 
 
@@ -91,7 +98,7 @@ for S1_name in S1_list:
             resampling = 'near',
             keep_gcp_file = False,
             overwrite = overwrite,
-            loglevel = 'INFO',
+            loglevel = loglevel
         )
 
 
@@ -116,7 +123,7 @@ for S1_name in S1_list:
             resampling = 'near',
             keep_gcp_file = False,
             overwrite = overwrite,
-            loglevel = 'INFO',
+            loglevel = loglevel
         )
 
         logger.info(f'Finished processing method: {processing_method}\n')

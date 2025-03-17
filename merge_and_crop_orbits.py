@@ -17,11 +17,20 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-procesing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
-orbit_list = ['043029_05233F', '043044_0523D1']
-crop_AOI = [-400000, 0, -1300000, -900000]
-
+# overwrite already processed files
 overwrite = False
+
+# logelevel
+loglevel = 'INFO'
+
+# pre-processing methods for classification
+processing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
+
+# S1 orbits to process
+orbit_list = ['043029_05233F', '043044_0523D1']
+
+# AOI coordinates for cropping
+crop_AOI = [-400000, 0, -1300000, -900000]
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -53,7 +62,7 @@ for orbit in orbit_list:
 # ------------------------------------------- #
 
     # loop through all processing methods
-    for processing_method in procesing_methods:
+    for processing_method in processing_methods:
 
         logger.info(f'Working on processing method: {processing_method}')
 
@@ -173,8 +182,8 @@ for orbit in orbit_list:
                 input_tif_path1,
                 input_tif_path2,
                 HH_HV_output_path,
-                overwrite=overwrite,
-                loglevel='INFO',
+                overwrite = overwrite,
+                loglevel = loglevel,
             )
 
 
@@ -221,9 +230,6 @@ for i,file_2_crop in enumerate(files_2_crop_list):
 
         logger.info(f'Finished file {file_2_crop}\n')
 
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 

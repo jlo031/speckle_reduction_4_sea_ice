@@ -17,21 +17,16 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-loglevel = 'INFO'
-
-# remove default logger handler and add personal one
-logger.remove()
-logger.add(sys.stderr, level=loglevel)
-
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-
-# define input parameters
-
-# overwrite exisiting scaled RGB image files
+# overwrite already processed files
 overwrite = False
 
-# percentiles for cropping
+# logelevel
+loglevel = 'INFO'
+
+# pre-processing methods for classification
+processing_methods = [ 'ML_1x1', 'baseline', 'proposed']
+
+# percentiles for cropping channels
 min_perc = 5
 max_perc = 95
 
@@ -44,10 +39,9 @@ red   = 'HV'
 green = 'HH'
 blue  = 'HH'
 
+# S1 orbits to process
 orbit_list = ['043029_05233F', '043044_0523D1']
 orbit_list = ['043044_0523D1']
-
-procesing_methods = [ 'ML_1x1', 'baseline', 'proposed']
 
 # cropped image coordinates (must be the same as in "evaluate_results.py")
 xmin = 800
@@ -70,7 +64,7 @@ for orbit in orbit_list:
     orbit_file_list = [ f for f in os.listdir(orbit_AOI_folder) if f.endswith('tiff') ]
 
     # loop through all processing methods
-    for processing_method in procesing_methods:
+    for processing_method in processing_methods:
 
         logger.info(f'Working on processing method: {processing_method}')
 

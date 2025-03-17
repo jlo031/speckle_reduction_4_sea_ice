@@ -17,10 +17,13 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-labels_path = './config/labels.txt'
-
+# overwrite already processed files
 overwrite = True
 
+# path to labels.txt file
+labels_path = './config/labels.txt'
+
+# output file format (ENVI or GTIFF)
 output_format = 'ENVI'
 
 # -------------------------------------------------------------------------- #

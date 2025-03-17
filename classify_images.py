@@ -17,8 +17,16 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# overwrite already processed files
+overwrite = False
+
+# logelevel
+loglevel = 'INFO'
+
+# classifier model
 clf_model_path = pathlib.Path('config/belgica_bank_ice_types_2022.pickle').resolve()
 
+# pre-processing methods for classification
 processing_methods = [ 'ML_1x1', 'ML_9x9', 'ML_21x21', 'MuLoG', 'SARBM3D', 'baseline', 'proposed']
 
 # -------------------------------------------------------------------------- #
@@ -75,8 +83,8 @@ for S1_name in S1_list:
             use_valid_mask = True,
             estimate_uncertainties = False,
             uncertainty_params_dict = [],
-            overwrite = False,
-            loglevel = 'INFO',
+            overwrite = overwrite,
+            loglevel = loglevel
         )
 
         logger.info(f'Finished processing method: {processing_method}\n')

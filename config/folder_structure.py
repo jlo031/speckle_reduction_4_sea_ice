@@ -10,8 +10,8 @@ import pathlib
 # -------------------------------------------------------------------------- #
 
 ##DATA_DIR      = pathlib.Path('/media/Data/speckle_reduction_tests')
-##DATA_DIR      = pathlib.Path('/media/jo/EO_disk/data/speckle_reduction_tests')
-DATA_DIR      = pathlib.Path('/media/johannes/LaCie_Q/EO_data/speckle_reduction_tests')
+DATA_DIR      = pathlib.Path('/media/jo/EO_disk/data/speckle_reduction_tests')
+##DATA_DIR      = pathlib.Path('/media/johannes/LaCie_Q/EO_data/speckle_reduction_tests')
 
 # -------------------------------------------------------------------------- #
 
@@ -43,9 +43,6 @@ S1_VAL_DIR.mkdir(parents=True, exist_ok=True)
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 PAPER_FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 

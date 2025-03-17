@@ -16,9 +16,14 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# list of ML processing levels
 ML_list = ['1x1', '9x9', '21x21']
 
+# overwrite already processed files
 overwrite = False
+
+# logelevel
+loglevel = 'INFO'
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -49,7 +54,7 @@ for s in safe_folder_list:
         safe_folder,
         general_feat_folder,
         overwrite = overwrite,
-        loglevel = 'INFO'
+        loglevel = loglevel
     )
 
     # get lat/lon for current image
@@ -57,7 +62,7 @@ for s in safe_folder_list:
         safe_folder,
         general_feat_folder,
         overwrite = overwrite,
-        loglevel = 'INFO'
+        loglevel = loglevel
     )
 
 # ------------------------------------------- #
@@ -82,7 +87,7 @@ for s in safe_folder_list:
                 ML = ML,
                 dB = True,
                 overwrite = overwrite,
-                loglevel = 'INFO'
+                loglevel = loglevel
             )
 
         # incident angle
@@ -90,7 +95,7 @@ for s in safe_folder_list:
             safe_folder,
             feat_folder,
             overwrite = overwrite,
-            loglevel = 'INFO'
+            loglevel = loglevel
         )
 
         logger.info(f'Finished ML: {ML}\n')

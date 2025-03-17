@@ -14,13 +14,13 @@ import matplotlib.pyplot as plt
 
 from osgeo import gdal
 
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-
-overwrite    = False
-make_figures = False
-
 from config.folder_structure import *
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+# overwrite already processed files
+overwrite = False
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -114,36 +114,13 @@ for tiff_file in tiff_files:
     out.FlushCache
     del out
 
-    logger.info('Writing HV to file')
+    logger.info('Writing HV to file\n')
     out = gdal.GetDriverByName('Envi').Create(HV_output_path.as_posix(), Nx, Ny, 1, gdal.GDT_Float32)
     out.GetRasterBand(1).WriteArray(HV_non_zero_dB)
     out.FlushCache
     del out
 
     logger.info(f'Finished tiff_file: {tiff_file}\n')
-
-# ------------------------------------------- #
-
-    if make_figures:
-
-        sub = 3
-        HH_min= 0
-        HH_max= 0.1
-        HV_min= 0
-        HV_max= 0.1
-        HH_dB_min= -35
-        HH_dB_max= 0
-        HV_dB_min= -40
-        HV_dB_max= -5
-
-        fig, axes = plt.subplots(3,2,sharex=True,sharey=True)
-        axes = axes.ravel()
-        axes[0].imshow(HH[::sub,::sub], vmin=HH_min, vmax=HH_max, interpolation='nearest')
-        axes[1].imshow(HV[::sub,::sub], vmin=HV_min, vmax=HV_max, interpolation='nearest')
-        axes[2].imshow(HH_dB[::sub,::sub], vmin=HH_dB_min, vmax=HH_dB_max, interpolation='nearest')
-        axes[3].imshow(HV_dB[::sub,::sub], vmin=HV_dB_min, vmax=HV_dB_max, interpolation='nearest')
-        axes[4].imshow(HH_non_zero_dB[::sub,::sub], vmin=HH_dB_min, vmax=HH_dB_max, interpolation='nearest')
-        axes[5].imshow(HV_non_zero_dB[::sub,::sub], vmin=HV_dB_min, vmax=HV_dB_max, interpolation='nearest')
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #

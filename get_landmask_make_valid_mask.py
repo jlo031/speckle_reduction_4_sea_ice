@@ -19,10 +19,15 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# overwrite already processed files
 overwrite = False
+
+# logelevel
+loglevel = 'INFO'
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
+
 # get list of all safe folders
 safe_folder_list = [ f for f in os.listdir(S1_L1_DIR) if f.endswith('SAFE') ]
 
@@ -56,7 +61,7 @@ for s in safe_folder_list:
         output_path,
         tie_points = 21,
         overwrite = overwrite,
-        loglevel = 'INFO'
+        loglevel = loglevel
     )
 
 # ------------------------------------------- #
