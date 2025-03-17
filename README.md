@@ -79,7 +79,7 @@ Either run everything in the environment specified in the workflow (some package
 
 12. Evaluate results numerically.
 
-        conda run -n LABELME python evaluate_results.py evaluate_results.py
+        conda run -n LABELME python evaluate_results.py
 
 
 ### Figures
