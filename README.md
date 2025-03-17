@@ -14,6 +14,8 @@ Sentinel-1 images over Beligica Bank during the CIRFA-22 are selected by Johanne
 Tiff files with calibrated and speckle reduced-data are provided by Loic and Ines.
 
 ### Set up conda env
+Either run everything in the environment specified in the workflow (some packages like matplotlib or cartopy might be missing in standard installations), or create a new environment with all libraries installed.
+
     # create and activate new environment
     conda create -y -n sr4si gdal
     conda activate sr4si
