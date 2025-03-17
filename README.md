@@ -5,8 +5,9 @@ Can be used to reproduce the sea ice work for the paper "Joint despeckling and t
 
 
 ### Background
-Ines (and others) hav developed a CNN-based method for joint despeckling and thermal noise compensationof S1 EW GRDM imagery.  
-Here, we test the effect of this method on high-resolutiuon, pixel-wise classification of sea ie types. We compare to results obtained from simple multi-looking with different window sizes and other deep-learning based methods.
+Ines (and others) have developed a CNN-based method for joint despeckling and thermal noise compensation of S1 EW GRDM imagery.  
+Here, we test the effect of this method on high-resolutiuon, pixel-wise classification of sea ie types.
+We compare to results obtained from simple multi-looking with different window sizes and other deep-learning based methods.
 
 Sentinel-1 images over Beligica Bank during the CIRFA-22 are selected by Johannes.
 
