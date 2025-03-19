@@ -1,0 +1,1702 @@
+{
+  "version": "5.5.0",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          2878.6342943854324,
+          6000.393019726859
+        ],
+        [
+          2887.6342943854324,
+          6009.393019726859
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          2663.974271012007,
+          6273.138936535163
+        ],
+        [
+          2672.974271012007,
+          6282.138936535163
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          3778.0,
+          4854.0
+        ],
+        [
+          3787.0,
+          4863.0
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          2896.9954476479516,
+          5975.658573596358
+        ],
+        [
+          2905.9954476479516,
+          5984.658573596358
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          3044.8677880734836,
+          5789.4883608304
+        ],
+        [
+          3053.8677880734836,
+          5798.4883608304
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          2590.00140251451,
+          6366.969782869737
+        ],
+        [
+          2599.00140251451,
+          6375.969782869737
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          1868.4549323734177,
+          7288.645710278584
+        ],
+        [
+          1877.4549323734177,
+          7297.645710278584
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          3914.1235789853517,
+          4681.165260213656
+        ],
+        [
+          3923.1235789853517,
+          4690.165260213656
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          4072.5377791642545,
+          4472.958294173427
+        ],
+        [
+          4081.5377791642527,
+          4481.958294173427
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          3850.0167976088333,
+          4761.726852259381
+        ],
+        [
+          3859.0167976088333,
+          4770.726852259381
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          4409.673156507416,
+          4036.1137094633077
+        ],
+        [
+          4418.673156507414,
+          4045.1137094633077
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          4567.375723268084,
+          3830.4801643855185
+        ],
+        [
+          4576.375723268082,
+          3839.4801643855185
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          4795.673960155278,
+          3539.2933597017814
+        ],
+        [
+          4804.673960155276,
+          3548.2933597017814
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          4984.863149344467,
+          3294.891815300237
+        ],
+        [
+          4993.8631493444655,
+          3303.891815300237
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          5222.475234497536,
+          2992.5989486631083
+        ],
+        [
+          5231.475234497534,
+          3001.5989486631083
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          5710.060851349399,
+          2363.3936992840486
+        ],
+        [
+          5719.060851349397,
+          2372.3936992840486
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          6169.1628357481195,
+          1778.7079802882404
+        ],
+        [
+          6178.162835748118,
+          1787.7079802882406
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          5967.739209917966,
+          2030.6208671046884
+        ],
+        [
+          5976.739209917964,
+          2039.6208671046886
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          6243.703601609361,
+          1674.8345169563202
+        ],
+        [
+          6252.703601609359,
+          1683.8345169563204
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          6620.473702053653,
+          1191.7434712460106
+        ],
+        [
+          6629.473702053651,
+          1200.7434712460108
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          6773.652775069378,
+          979.4612914919711
+        ],
+        [
+          6782.652775069376,
+          988.4612914919713
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          6909.915386876174,
+          812.4405401502895
+        ],
+        [
+          6918.915386876172,
+          821.4405401502897
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          7094.744893582243,
+          570.6316063016876
+        ],
+        [
+          7103.744893582241,
+          579.6316063016878
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          7257.839915178061,
+          358.10091750878007
+        ],
+        [
+          7266.8399151780595,
+          367.1009175087803
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          1641.7005464085055,
+          7571.101850629461
+        ],
+        [
+          1650.7005464085055,
+          7580.101850629461
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          1557.9938011914505,
+          7678.116340795786
+        ],
+        [
+          1566.9938011914505,
+          7687.116340795786
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          1373.7292333696712,
+          7911.038525688589
+        ],
+        [
+          1382.7292333696712,
+          7920.038525688589
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          3633.090666049406,
+          5041.391160862185
+        ],
+        [
+          3642.090666049406,
+          5050.391160862185
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          3541.9459883552877,
+          5153.151835487469
+        ],
+        [
+          3550.9459883552877,
+          5162.151835487469
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          3158.504151709847,
+          5643.207369094863
+        ],
+        [
+          3167.504151709847,
+          5652.207369094863
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          2433.973358935452,
+          6566.433843013766
+        ],
+        [
+          2442.973358935452,
+          6575.433843013766
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          1240.8623270878647,
+          8077.717934421284
+        ],
+        [
+          1249.8623270878647,
+          8086.717934421284
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          1061.6317582318738,
+          8301.199588682319
+        ],
+        [
+          1070.6317582318738,
+          8310.199588682317
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          937.0738772834785,
+          8460.363927027436
+        ],
+        [
+          946.0738772834785,
+          8469.363927027434
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          595.4309185352566,
+          8890.446904741993
+        ],
+        [
+          604.4309185352566,
+          8899.446904741992
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          404.1909944005957,
+          9132.88644954996
+        ],
+        [
+          413.1909944005957,
+          9141.886449549958
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          610.542331361708,
+          8874.595934372213
+        ],
+        [
+          619.542331361708,
+          8883.595934372213
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          3006.0746846252077,
+          5837.764222899365
+        ],
+        [
+          3015.0746846252077,
+          5846.764222899365
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          3441.9459883552877,
+          5282.42719780631
+        ],
+        [
+          3450.9459883552877,
+          5291.42719780631
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          3349.192365166882,
+          5398.659081864281
+        ],
+        [
+          3358.192365166882,
+          5407.659081864281
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          5150.58314363589,
+          3089.9381974894764
+        ],
+        [
+          5159.5831436358885,
+          3098.9381974894764
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          5090.401896311785,
+          3166.670037078459
+        ],
+        [
+          5099.401896311783,
+          3175.670037078459
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          4296.99033390878,
+          4194.960379679162
+        ],
+        [
+          4305.990333908779,
+          4203.960379679162
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          4287.605558100646,
+          4207.056312942978
+        ],
+        [
+          4296.605558100645,
+          4216.056312942978
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          3926.1436123743333,
+          4670.146896273756
+        ],
+        [
+          3935.1436123743333,
+          4679.146896273756
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          3689.466647194129,
+          4968.174303552521
+        ],
+        [
+          3698.466647194129,
+          4977.174303552521
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          2620.5689952326306,
+          6328.055003681447
+        ],
+        [
+          2629.5689952326306,
+          6337.055003681447
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          1139.8652812271737,
+          8210.382275670185
+        ],
+        [
+          1148.8652812271737,
+          8219.382275670183
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          1997.4621295166794,
+          7092.243937034679
+        ],
+        [
+          2006.4621295166794,
+          7101.243937034679
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          2336.0185482446027,
+          6691.393187940969
+        ],
+        [
+          2345.0185482446027,
+          6700.393187940969
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          2294.2,
+          6711.6
+        ],
+        [
+          2299.2,
+          6716.6
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          5687.960851349399,
+          2403.4936992840485
+        ],
+        [
+          5696.960851349397,
+          2412.4936992840485
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          5688.4,
+          2427.4
+        ],
+        [
+          5693.4,
+          2432.4
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          5677.81654676259,
+          2436.5640287769784
+        ],
+        [
+          5682.81654676259,
+          2441.5640287769784
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          5719.2,
+          2381.7
+        ],
+        [
+          5724.2,
+          2386.7
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          5728.9,
+          2385.4
+        ],
+        [
+          5733.9,
+          2390.4
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          5125.1,
+          3159.7
+        ],
+        [
+          5130.1,
+          3164.7
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          5122.7,
+          3128.6
+        ],
+        [
+          5127.7,
+          3133.6
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          5011.8,
+          3301.0
+        ],
+        [
+          5016.8,
+          3306.0
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          4984.3,
+          3309.8
+        ],
+        [
+          4989.3,
+          3314.8
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          1996.6571434258,
+          7122.528321164419
+        ],
+        [
+          2001.6571434258,
+          7127.528321164419
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          1991.5001927531544,
+          7131.272715783253
+        ],
+        [
+          1996.5001927531544,
+          7136.272715783253
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          1880.177968273035,
+          7135.053790090645
+        ],
+        [
+          1885.177968273035,
+          7140.053790090645
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          2089.338030590992,
+          7006.678121188659
+        ],
+        [
+          2094.3380305909923,
+          7011.678121188659
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          2034.5548613462531,
+          7070.1887991900685
+        ],
+        [
+          2043.5548613462531,
+          7079.1887991900685
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          2100.8668526461297,
+          7014.447544747556
+        ],
+        [
+          2105.86685264613,
+          7019.447544747556
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          2112.1450481348515,
+          6977.354812917983
+        ],
+        [
+          2117.145048134852,
+          6982.354812917983
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          1928.68640151831,
+          6930.988898131015
+        ],
+        [
+          1933.6864015183105,
+          6935.988898131015
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          2100.4787201527342,
+          6918.763063273602
+        ],
+        [
+          2105.4787201527342,
+          6923.763063273602
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          2122.28323143093,
+          6963.374592095657
+        ],
+        [
+          2127.28323143093,
+          6968.374592095657
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          1964.5260005158038,
+          6977.856066050815
+        ],
+        [
+          1969.5260005158043,
+          6982.856066050815
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          2120.666351392997,
+          6934.9989231936715
+        ],
+        [
+          2125.6663513929975,
+          6939.9989231936715
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          6025.615330491848,
+          1976.8381841553344
+        ],
+        [
+          6030.615330491848,
+          1981.8381841553344
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          6005.733932873111,
+          1938.2725821442662
+        ],
+        [
+          6014.73393287311,
+          1947.2725821442664
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          6059.6522698058325,
+          1915.6244638387116
+        ],
+        [
+          6064.6522698058325,
+          1920.6244638387116
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          6114.005831811109,
+          1823.2761788782896
+        ],
+        [
+          6119.005831811109,
+          1828.2761788782896
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          6128.253852919288,
+          1839.3711656856774
+        ],
+        [
+          6133.253852919288,
+          1844.3711656856774
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          5991.749764007676,
+          1860.9638750202555
+        ],
+        [
+          6000.7497640076745,
+          1869.9638750202557
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          5952.792111494487,
+          1827.7616670049385
+        ],
+        [
+          5957.792111494487,
+          1832.7616670049385
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          6016.380501995806,
+          2008.500453284622
+        ],
+        [
+          6021.380501995806,
+          2013.500453284622
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          6110.83960489818,
+          1799.0017725458358
+        ],
+        [
+          6115.83960489818,
+          1804.0017725458358
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          6078.121926797917,
+          1923.0123266355454
+        ],
+        [
+          6083.121926797917,
+          1928.0123266355454
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          974.1570258646582,
+          8418.823423598498
+        ],
+        [
+          979.1570258646583,
+          8423.823423598498
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          1109.235559896072,
+          8251.545936687502
+        ],
+        [
+          1114.235559896072,
+          8256.545936687502
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          963.6858216761767,
+          8196.572114697972
+        ],
+        [
+          968.6858216761767,
+          8201.572114697972
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          1146.14655466047,
+          8175.629706321009
+        ],
+        [
+          1151.14655466047,
+          8180.629706321007
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Deformed Ice",
+      "points": [
+        [
+          954.5235180112553,
+          8188.980491661323
+        ],
+        [
+          959.5235180112553,
+          8193.980491661321
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Level Ice",
+      "points": [
+        [
+          1008.7119996866481,
+          8374.059025692737
+        ],
+        [
+          1013.7119996866478,
+          8379.059025692735
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          1135.4135703672764,
+          8231.912428834097
+        ],
+        [
+          1140.4135703672762,
+          8236.912428834095
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          1049.0261358123025,
+          8236.886250823627
+        ],
+        [
+          1054.0261358123023,
+          8241.886250823625
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "OW / New Ice",
+      "points": [
+        [
+          999.0261358123025,
+          8282.959549252946
+        ],
+        [
+          1004.0261358123023,
+          8287.959549252944
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          1175.9894865976426,
+          8189.765831975461
+        ],
+        [
+          1180.9894865976423,
+          8194.765831975457
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          995.0994342416217,
+          8403.6401775252
+        ],
+        [
+          1000.0994342416218,
+          8408.6401775252
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Young Ice",
+      "points": [
+        [
+          1046.9318949746057,
+          8161.49358066656
+        ],
+        [
+          1051.9318949746055,
+          8166.493580666555
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    }
+  ],
+  "imagePath": "043044_0523D1_proposed_RGB_CROP.tiff",
+  "imageData": null,
+  "imageHeight": 9200,
+  "imageWidth": 7500
+}
