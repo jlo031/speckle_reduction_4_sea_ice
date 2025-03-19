@@ -27,6 +27,7 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# S1 orbit to process
 orbit = '043044_0523D1'
 
 # parameters for RGB scaling
@@ -48,6 +49,9 @@ xmin = 800
 xmax = 10000
 ymin = 2500
 ymax = 10000
+
+# define label txt file path
+labels_path = 'config/labels.txt'
 
 fig1a = True
 fig1a_polygons = True
@@ -108,7 +112,6 @@ legend_properties = {'weight':'bold'}
 
 # define json path
 json_path = S1_RGB_DIR / f'{orbit}_proposed_RGB_CROP.json'
-labels_path = 'config/labels.txt'
 
 # get class name list
 class_names = lm_json.get_class_name_list_from_labels_txt(labels_path)

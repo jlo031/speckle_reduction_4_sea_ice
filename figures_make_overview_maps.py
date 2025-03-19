@@ -24,19 +24,23 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# parameters for RGB scaling
 vmin_HH = -35
 vmax_HH = 0
 vmin_HV = -40
 vmax_HV = -5
 
+# grid labels
 x_grid = [-45, -30, -15, 0, 15, 30]
 y_grid = [76, 79, 82, 85]
 
-
+# S1 orbits to process
 orbit_list = ['043029_05233F', '043044_0523D1']
 
+# select pre-processing method
 processing_method = 'proposed'
 
+# overwrite already processed files
 overwrite = False
 
 # --------------------------------------------------------------- #
@@ -62,7 +66,7 @@ for orbit in orbit_list:
     geo_image_path = S1_ORBIT_DIR / orbit / f'HH_HV_{processing_method}.tiff'
 
     # build path to output figure
-    output_figure_path = FIG_DIR / f'overview_map_full_orbit_{orbit}_method_{processing_method}.png'
+    output_figure_path = FIG_DIR / f'overview_map_full_orbit_{orbit}_method_{processing_method}.pdf'
 
     if output_figure_path.is_file() and not overwrite:
         logger.info('Figure for current orbit and processing method already exists')

@@ -1,7 +1,7 @@
 # ---- This is <evaluate_results.py> ----
 
 """
-Numerically evaluate classification results
+Numerically evaluate classification results from one individual orbit
 """ 
 
 import os
@@ -21,9 +21,9 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-# S1 orbits to process
-orbit_list = ['043029_05233F', '043044_0523D1']
-orbit_list = ['043044_0523D1']
+# S1 orbit to process
+#orbit = '043029_05233F'
+orbit = '043044_0523D1'
 
 # cropped image coordinates (must be the same as in "make_scaled_RGBs_from_AOI_crops.py")
 xmin = 800

@@ -1,14 +1,11 @@
-# ---- This is <label_cropped_images.sh> ----
+# ---- This is <./label_geocoded_AOI_images.sh> ----
 #!/bin/bash
 #
 # Start labelme for images in input folder
 #
 # Typical usage example for this project:
-#     ./label_cropped_images.sh /media/jo/EO_disk/data/LC_ICE/crops/scaled_images config/labels_winter.txt
-#     ./label_cropped_images.sh /media/jo/LaCie_Q/EO_data/LC_ICE/crops/scaled_images config/labels_winter.txt
-#     ./label_cropped_images.sh /media/johannes/EO_disk/data/LC_ICE/crops/scaled_images config/labels_winter.txt
-#     ./label_cropped_images.sh /media/johannes/LaCie_Q/EO_data/LC_ICE/crops/scaled_images config/labels_winter.txt
-#     ./label_cropped_images.sh /D/EO_data/LC_ICE/crops/scaled_images config/labels_winter.txt
+#     ./label_geocoded_AOI_images.sh /media/jo/EO_disk/data/speckle_reduction_tests/Sentinel-1/RGBs config/labels.txt 
+#     ./label_geocoded_AOI_images.sh /media/jo/LaCie_Q/EO_data/speckle_reduction_tests/Sentinel-1/RGBs config/labels.txt 
 #
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -17,7 +14,7 @@
 if [ $# -lt 2 ]; then
   echo " "
   echo "ERROR: At least two positional parameters required"
-  echo "Usage: ./label_cropped_images.sh IMAGE_DIR LABELS_FILE"
+  echo "Usage: ./label_geocoded_AOI_images.sh IMAGE_DIR LABELS_FILE"
   echo " "
   exit
 fi
@@ -29,7 +26,7 @@ IMAGE_DIR=$1
 if [ ! -d "${IMAGE_DIR}" ]; then
   echo " "
   echo "ERROR: Could not find IMAGE_DIR: '${IMAGE_DIR}'"
-  echo "Usage: ./label_cropped_images.sh IMAGE_DIR LABELS_FILE"
+  echo "Usage: ./label_geocoded_AOI_images.sh IMAGE_DIR LABELS_FILE"
   echo " "
   exit
 fi
@@ -41,7 +38,7 @@ LABELS_FILE=$2
 if [ ! -f "${LABELS_FILE}" ]; then
   echo " "
   echo "ERROR: Could not find LABELS_FILE: '${LABELS_FILE}'"
-  echo "Usage: ./label_cropped_images.sh IMAGE_DIR LABELS_FILE"
+  echo "Usage: ./label_geocoded_AOI_images.sh IMAGE_DIR LABELS_FILE"
   echo " "
   exit
 fi
@@ -61,4 +58,4 @@ labelme ${IMAGE_DIR} --labels ${LABELS_FILE} --nodata
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-# ---- End of <label_cropped_images.sh> ----
+# ---- End of <label_geocoded_AOI_images.sh> ----

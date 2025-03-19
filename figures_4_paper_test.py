@@ -1,7 +1,7 @@
-# ---- This is <figures_4_paper.py> ----
+# ---- This is <figures_4_paper_test.py> ----
 
 """
-Make the figures for the paper (revised version).
+Make test versions of the figures for the paper (revised version).
 """
 
 import os
@@ -30,6 +30,8 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# S1 orbit to process
+#orbit = '043029_05233F'
 orbit = '043044_0523D1'
 
 # cropped image coordinates (must be the same as in "make_scaled_RGBs_from_AOI_crops.py")
@@ -47,6 +49,9 @@ vmax_HV = -5
 # linewidth for ROIs
 linewidth_small = 2
 linewidth_large = 3
+
+# define label txt file path
+labels_path = 'config/labels.txt'
 
 # grid labels
 x_grid = [-45, -30, -15, 0, 15, 30]
@@ -93,7 +98,6 @@ legend_properties = {'weight':'bold'}
 
 # define json path
 json_path = S1_RGB_DIR / f'{orbit}_proposed_RGB_CROP.json'
-labels_path = 'config/labels.txt'
 
 # get class name list
 class_names = lm_json.get_class_name_list_from_labels_txt(labels_path)
@@ -132,21 +136,6 @@ labels_ML_21x21 = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_ML_21x21_cro
 labels_MuLoG    = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_MuLoG_crop.tiff').as_posix()).ReadAsArray()
 labels_SARBM3D  = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_SARBM3D_crop.tiff').as_posix()).ReadAsArray()
 labels_baseline = gdal.Open((S1_ORBIT_DIR/f'{orbit}'/'AOIs'/'labels_baseline_crop.tiff').as_posix()).ReadAsArray()
-
-
-"""
-logger.info('Loading validation mask ...')
-
-# load validation mask
-validation_mask = gdal.Open((S1_VAL_DIR / f'{orbit}_proposed_RGB_CROP_training_mask.img').as_posix()).ReadAsArray()
-
-# make full size validation mask
-val_mask = np.zeros(labels_proposed.shape)
-val_mask[xmin:xmax,ymin:ymax] = validation_mask
-
-# clean up
-validation_mask = None
-"""
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -330,10 +319,6 @@ HV_baseline_scaled = None
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
-
-
-# --------------------------------------------------------------- #
-# --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
@@ -347,7 +332,7 @@ if show_polygons:
 else:
     output_string = ''
 
-output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed{output_string}'
+output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_intensities_proposed{output_string}'
 
 fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
 ax.imshow(RGB_proposed)
@@ -404,7 +389,7 @@ if show_polygons:
 else:
     output_string = ''
 
-output_path = PAPER_FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed{output_string}'
+output_path = FIG_DIR / f'AOI_overview_orbit_{orbit}_labels_proposed{output_string}'
 
 fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((6,5)))
 ax.imshow(labels_proposed, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -468,7 +453,7 @@ else:
 # swath boundary effect
 # "artificial" class in ML due to averaging
 
-output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_1{output_string}'
+output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_1{output_string}'
 
 fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
 axes = axes.ravel()
@@ -533,15 +518,12 @@ os.system(crop_pdf_cmd)
 convert_svg_command = f'pdf2svg {output_path}.pdf {output_path}.svg'
 os.system(convert_svg_command)
 
-convert_png_command = f'pdftoppm {output_path}.pdf {output_path} -r 300 -png -singlefile'
-os.system(convert_png_command)
-
 # --------------------------------------------------------------- #
 
 # example 3:
 # swath boundary effect
 
-output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3{output_string}'
+output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_3{output_string}'
 
 fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
 axes = axes.ravel()
@@ -606,14 +588,12 @@ os.system(crop_pdf_cmd)
 convert_svg_command = f'pdf2svg {output_path}.pdf {output_path}.svg'
 os.system(convert_svg_command)
 
-convert_png_command = f'pdftoppm {output_path}.pdf {output_path} -r 300 -png -singlefile'
-os.system(convert_png_command)
 
 # --------------------------------------------------------------- #
 
 # example 5:
 
-output_path = PAPER_FIG_DIR / f'labels_closeup_orbit_{orbit}_example_5{output_string}'
+output_path = FIG_DIR / f'labels_closeup_orbit_{orbit}_example_5{output_string}'
 
 fig, axes = plt.subplots(2,3,sharex=True,sharey=True,figsize=((12,8)))
 axes = axes.ravel()
@@ -689,7 +669,7 @@ logger.info('Making colorbar figure ...')
 
 plt.rcParams.update({'font.size': 15})
 
-output_path = PAPER_FIG_DIR / f'colorbar'
+output_path = FIG_DIR / f'colorbar'
 
 fig, ax = plt.subplots(1,1,sharex=True,sharey=True,figsize=((7,5)))
 h_cbar = ax.imshow(labels_proposed, interpolation='nearest', cmap=cmap, norm=cmap_norm)
@@ -710,19 +690,16 @@ os.system(convert_svg_command)
 
 # move figures into subfolders
 
-png_dir = PAPER_FIG_DIR / 'PNG'
-svg_dir = PAPER_FIG_DIR / 'SVG'
-pdf_dir = PAPER_FIG_DIR / 'PDF'
+svg_dir = FIG_DIR / 'SVG'
+pdf_dir = FIG_DIR / 'PDF'
 
-png_dir.mkdir(parents=True, exist_ok=True)
 svg_dir.mkdir(parents=True, exist_ok=True)
 pdf_dir.mkdir(parents=True, exist_ok=True)
 
-os.system(f'mv {PAPER_FIG_DIR}/*png {png_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*svg {svg_dir}/.')
-os.system(f'mv {PAPER_FIG_DIR}/*pdf {pdf_dir}/.')
+os.system(f'mv {FIG_DIR}/*svg {svg_dir}/.')
+os.system(f'mv {FIG_DIR}/*pdf {pdf_dir}/.')
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
 
-# ---- End of <figures_4_paper.py> ----
+# ---- End of <figures_4_paper_test.py> ----

@@ -26,6 +26,7 @@ from config.folder_structure import *
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# S1 orbit to process
 #orbit = '043029_05233F'
 orbit = '043044_0523D1'
 
@@ -43,6 +44,9 @@ vmax_HV = -5
 
 # linewidth for ROIs
 linewidth = 4
+
+# define label txt file path
+labels_path = 'config/labels.txt'
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -85,7 +89,6 @@ legend_properties = {'weight':'bold'}
 
 # define json path
 json_path = S1_RGB_DIR / f'{orbit}_proposed_RGB_CROP.json'
-labels_path = 'config/labels.txt'
 
 # get class name list
 class_names = lm_json.get_class_name_list_from_labels_txt(labels_path)
@@ -166,6 +169,20 @@ HV_SARBM3D[HV_SARBM3D==0] = np.nan
 HH_baseline[HH_baseline==0] = np.nan
 HV_baseline[HV_baseline==0] = np.nan
 
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
+
+# clean up
+intensities_ML_1x1 = None
+intensities_proposed = None
+intensities_ML_9x9 = None
+intensities_ML_21x21 = None
+intensities_MuLoG = None
+intensities_SARBM3D = None
+intensities_baseline = None
+
+# --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
 
 # set new min/max values for RGBs
 new_min = 0
@@ -183,6 +200,12 @@ HV_ML_1x1_scaled  = np.clip(HV_ML_1x1_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_ML_1x1 = np.stack((HV_ML_1x1_scaled, HH_ML_1x1_scaled, HH_ML_1x1_scaled),2)
 
+# clean up
+HH_ML_1x1 = None
+HV_ML_1x1 = None
+HH_ML_1x1_scaled = None
+HV_ML_1x1_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -194,6 +217,12 @@ HV_proposed_scaled  = np.clip(HV_proposed_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_proposed = np.stack((HV_proposed_scaled, HH_proposed_scaled, HH_proposed_scaled),2)
+
+# clean up
+HH_proposed = None
+HV_proposed = None
+HH_proposed_scaled = None
+HH_proposed_scaled = None
 
 # ------------------ #
 
@@ -207,6 +236,12 @@ HV_ML_9x9_scaled  = np.clip(HV_ML_9x9_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_ML_9x9 = np.stack((HV_ML_9x9_scaled, HH_ML_9x9_scaled, HH_ML_9x9_scaled),2)
 
+# clean up
+HH_ML_9x9 = None
+HV_ML_9x9 = None
+HH_ML_9x9_scaled = None
+HV_ML_9x9_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -218,6 +253,12 @@ HV_ML_21x21_scaled  = np.clip(HV_ML_21x21_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_ML_21x21 = np.stack((HV_ML_21x21_scaled, HH_ML_21x21_scaled, HH_ML_21x21_scaled),2)
+
+# clean up
+HH_ML_21x21 = None
+HV_ML_21x21 = None
+HH_ML_21x21_scaled = None
+HV_ML_21x21_scaled = None
 
 # ------------------ #
 
@@ -231,6 +272,12 @@ HV_MuLoG_scaled  = np.clip(HV_MuLoG_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_MuLoG = np.stack((HV_MuLoG_scaled, HH_MuLoG_scaled, HH_MuLoG_scaled),2)
 
+# clean up
+HH_MuLoG = None
+HV_MuLoG = None
+HH_MuLoG_scaled = None
+HV_MuLoG_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -243,6 +290,12 @@ HV_SARBM3D_scaled  = np.clip(HV_SARBM3D_scaled, new_min, new_max)
 # stack to false-color RGB
 RGB_SARBM3D = np.stack((HV_SARBM3D_scaled, HH_SARBM3D_scaled, HH_SARBM3D_scaled),2)
 
+# clean up
+HH_SARBM3D = None
+HV_SARBM3D = None
+HH_SARBM3D_scaled = None
+HV_SARBM3D_scaled = None
+
 # ------------------ #
 
 # scale both channels to [new_min,new_max] and clip values below and above
@@ -254,6 +307,12 @@ HV_baseline_scaled  = np.clip(HV_baseline_scaled, new_min, new_max)
 
 # stack to false-color RGB
 RGB_baseline = np.stack((HV_baseline_scaled, HH_baseline_scaled, HH_baseline_scaled),2)
+
+# clean up
+HH_baseline = None
+HV_baseline = None
+HH_baseline_scaled = None
+HV_baseline_scaled = None
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
@@ -285,7 +344,7 @@ labels_baseline_crop = labels_baseline[xmin:xmax,ymin:ymax]
 
 # ONLY PROPOSED METHOD AND ROIS
 
-fig, axes = plt.subplots(2,2,sharex=True,sharey=True)
+fig, axes = plt.subplots(1,3,sharex=True,sharey=True)
 axes = axes.ravel()
 
 axes[0].imshow(RGB_proposed_crop)
