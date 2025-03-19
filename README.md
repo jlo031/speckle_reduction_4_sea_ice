@@ -98,5 +98,10 @@ Tests possible figure setups for the paper. Reads lots of data, may run out of m
 *figures_4_paper_final.py*  
 Makes final figures for the revised paper.
 
-Actual final figures for the paper are combined versions of the outputs from *figures_4_paper_final.py* and saved in the SVG folder of this repository.
+
+### Included data and figures
+
+Actual final figures used in the paper are combined versions of the outputs from *figures_4_paper_final.py* and saved in the *figures* folder of this repository.
+
+The final validation ROIs are saved in json format in the *config* folder.
 
