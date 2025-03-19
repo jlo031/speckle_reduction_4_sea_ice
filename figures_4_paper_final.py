@@ -53,23 +53,23 @@ ymax = 10000
 # define label txt file path
 labels_path = 'config/labels.txt'
 
-fig1a = True
+fig1a = False
 fig1a_polygons = True
 fig1a_title = False
 
-fig1b = True
+fig1b = False
 fig1b_polygons = False
 fig1b_title = False
 
-fig2 = False
+fig2 = True
 fig2_polygons = True
 fig2_title = True
 
-fig3 = False
+fig3 = True
 fig3_polygons = True
 fig3_title = True
 
-fig_colorbar = False
+fig_colorbar = True
 
 # --------------------------------------------------------------- #
 # --------------------------------------------------------------- #
