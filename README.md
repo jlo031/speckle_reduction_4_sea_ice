@@ -93,7 +93,7 @@ All scripts for visualization start with *figures_*.
 Makes simple overview figures of the entire orbits.
 
 *figures_4_paper_test.py*  
-Test making figures for paper. Reads lots of data, may run out of memory.
+Tests possible figure setups for the paper. Reads lots of data, may run out of memory.
 
 *figures_4_paper_final.py*  
 Makes final figures for the revised paper.
