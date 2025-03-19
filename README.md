@@ -30,6 +30,9 @@ Either run everything in the environment specified in the workflow (some package
     pip install git+https://github.com/jlo031/geocoding
     pip install git+https://github.com/jlo031/GLIA
 
+Processing step 3 of the workflow below requires correct installation of the S1_processing library, which needs the correct gpt_path set.
+Refer to the github page for more details (https://github.com/jlo031/S1_processing).
+
 
 ### Workflow
 
@@ -86,7 +89,14 @@ Either run everything in the environment specified in the workflow (some package
 
 All scripts for visualization start with *figures_*.  
 
-*figures_make_overview_maps.py* makes simple overview figures of the entire orbits.
-*figures_make_all_figures_orbit_043029_05233F.py* and *figures_make_all_figures_orbit_043044_0523D1.py* make figures for the paper. Individual subfigures produced by these two scripts must be combined and mofified in inkscape to produce the final versions.
+*figures_make_overview_maps.py*  
+Makes simple overview figures of the entire orbits.
 
+*figures_4_paper_test.py*  
+Test making figures for paper. Reads lots of data, may run out of memory.
+
+*figures_4_paper_final.py*  
+Makes final figures for the revised paper.
+
+Actual final figures for the paper are combined versions of the outputs from *figures_4_paper_final.py* and saved in the SVG folder of this repository.
 
